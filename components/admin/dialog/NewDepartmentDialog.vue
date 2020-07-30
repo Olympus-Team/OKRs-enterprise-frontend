@@ -19,7 +19,7 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { Component, Vue, PropSync, Prop } from 'vue-property-decorator';
+import { Component, Vue, PropSync } from 'vue-property-decorator';
 import { Form } from 'element-ui';
 import TeamRepository from '@/repositories/TeamRepository';
 import { TeamDTO } from '@/constants/app.interface';
@@ -28,7 +28,6 @@ import { Maps, Rule } from '@/constants/app.type';
   name: 'TeamDialog',
 })
 export default class TeamDialog extends Vue {
-  @Prop(Function) public reloadData!: Function;
   @PropSync('teamVisibleDialog', { type: Boolean, required: true }) public syncTeamDialog!: boolean;
 
   private autoSizeConfig = { minRows: 2, maxRows: 4 };
@@ -40,19 +39,11 @@ export default class TeamDialog extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    name: [{ validator: this.sanitizeInput, trigger: ['change', 'blur'] }],
+    name: [
+      { type: 'string', required: true, message: 'Vui lòng nhập tên phòng ban', trigger: 'blur' },
+      { min: 3, message: 'Tên phòng ban chứa ít nhất 3 ký tự', trigger: 'change' },
+    ],
   };
-
-  private sanitizeInput(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
-    const isEmpty = (value: string) => !value.trim().length;
-    if (value.length === 0) {
-      return callback('Vui lòng nhập tên phòng ban');
-    }
-    if (isEmpty(value)) {
-      return callback('Tên phòng ban không được chỉ chứa dấu cách');
-    }
-    return callback();
-  }
 
   private createTeam() {
     this.loading = true;
@@ -68,7 +59,6 @@ export default class TeamDialog extends Vue {
           });
           this.clearForm();
           this.loading = false;
-          this.reloadData();
           this.syncTeamDialog = false;
         } catch (error) {
           this.$notify.error({

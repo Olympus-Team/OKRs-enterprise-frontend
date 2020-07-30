@@ -33,7 +33,6 @@
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@vuejs-community/vue-filter-date-format": "^1.5.0",
     "date-fns": "^2.15.0",
     "element-ui": "^2.13.2",
     "js-cookie": "^2.2.1",

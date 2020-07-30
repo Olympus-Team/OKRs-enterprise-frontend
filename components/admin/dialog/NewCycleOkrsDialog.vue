@@ -41,7 +41,7 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { Component, Vue, PropSync, Prop } from 'vue-property-decorator';
+import { Component, Vue, PropSync } from 'vue-property-decorator';
 import { Form } from 'element-ui';
 import { CycleDTO } from '@/constants/app.interface';
 import { Maps, Rule } from '@/constants/app.type';
@@ -51,7 +51,6 @@ import CycleRepository from '@/repositories/CycleRepository';
   name: 'CycleOkrsDialog',
 })
 export default class CycleOkrsDialog extends Vue {
-  @Prop(Function) public reloadData!: Function;
   @PropSync('cycleVisibleDialog', { type: Boolean, required: true }) public syncCycleDialog!: boolean;
 
   private loading: boolean = false;
@@ -63,24 +62,16 @@ export default class CycleOkrsDialog extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    name: [{ validator: this.sanitizeInput, trigger: ['change', 'blur'] }],
+    name: [
+      { type: 'string', required: true, message: 'Vui lòng nhập tên chu kỳ', trigger: 'blur' },
+      { min: 3, message: 'Tên chu kỳ chứa ít nhất 3 ký tự' },
+    ],
     startDate: [{ required: true, message: 'Vui lòng chọn ngày bắt đầu', trigger: 'blur' }],
     endDate: [
       { required: true, message: 'Vui lòng chọn ngày kết thúc', trigger: 'blur' },
       { validator: this.validateEndDate, trigger: ['blur', 'change'] },
     ],
   };
-
-  private sanitizeInput(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
-    const isEmpty = (value: string) => !value.trim().length;
-    if (value.length === 0) {
-      return callback('Vui lòng nhập tên chu kỳ');
-    }
-    if (isEmpty(value)) {
-      return callback('Tên chu kỳ không được chỉ chứa dấu cách');
-    }
-    return callback();
-  }
 
   private validateEndDate(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
     if (compareTwoDate(value, this.temCreateCycle.startDate) === 1) {
@@ -108,7 +99,6 @@ export default class CycleOkrsDialog extends Vue {
           });
           this.loading = false;
           this.clearForm();
-          this.reloadData();
           this.syncCycleDialog = false;
         } catch (error) {
           this.$notify.error({

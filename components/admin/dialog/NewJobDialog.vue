@@ -19,7 +19,7 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { Component, Vue, PropSync, Prop } from 'vue-property-decorator';
+import { Component, Vue, PropSync } from 'vue-property-decorator';
 import { Form } from 'element-ui';
 import { TeamDTO } from '@/constants/app.interface';
 import JobRepository from '@/repositories/JobRepository';
@@ -28,7 +28,6 @@ import { Maps, Rule } from '@/constants/app.type';
   name: 'JobDialog',
 })
 export default class JobDialog extends Vue {
-  @Prop(Function) public reloadData!: Function;
   @PropSync('jobVisibleDialog', { type: Boolean, required: true }) public syncJobDialog!: boolean;
 
   private autoSizeConfig = { minRows: 2, maxRows: 4 };
@@ -40,19 +39,11 @@ export default class JobDialog extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    name: [{ validator: this.sanitizeInput, trigger: ['change', 'blur'] }],
+    name: [
+      { type: 'string', required: true, message: 'Vui lòng nhập tên vị trí', trigger: 'blur' },
+      { min: 3, message: 'Tên vị trí chứa ít nhất 3 ký tự', trigger: ['change', 'blur'] },
+    ],
   };
-
-  private sanitizeInput(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
-    const isEmpty = (value: string) => !value.trim().length;
-    if (value.length === 0) {
-      return callback('Vui lòng nhập tên vị trí');
-    }
-    if (isEmpty(value)) {
-      return callback('Tên vị trí không được chỉ chứa dấu cách');
-    }
-    return callback();
-  }
 
   private createJob() {
     this.loading = true;
@@ -68,7 +59,6 @@ export default class JobDialog extends Vue {
           });
           this.clearForm();
           this.loading = false;
-          this.reloadData();
           this.syncJobDialog = false;
         } catch (error) {
           this.$notify.error({

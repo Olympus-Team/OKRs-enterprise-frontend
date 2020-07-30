@@ -2,14 +2,11 @@
   <fragment>
     <el-table v-loading="loading" :data="tableData" empty-text="Không có dữ liệu" class="cycle-okrs">
       <el-table-column prop="name" label="Tên chu kỳ"></el-table-column>
-      <el-table-column label="Ngày bắt đầu">
-        <template v-slot="{ row }">
-          <span>{{ new Date(row.startDate) | dateFormat('DD/MM/YYYY') }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="startDate" label="Ngày bắt đầu" />
+      <!-- <el-table-column prop="startDate" label="Ngày bắt đầu" :formatter="formatter" /> -->
       <el-table-column label="Ngày kết thúc">
         <template v-slot="{ row }">
-          <span>{{ new Date(row.endDate) | dateFormat('DD/MM/YYYY') }}</span>
+          <span>{{ row.endDate }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Thao tác" align="center">
@@ -75,13 +72,10 @@ import { CycleDTO } from '@/constants/app.interface';
 import CycleRepository from '@/repositories/CycleRepository';
 import { formatDateToDD, formatDateToYYYY, compareTwoDate } from '@/utils/dateParser';
 
-@Component<ManageCycleOkrs>({
-  name: 'ManageCycleOkrs',
-})
+@Component<ManageCycleOkrs>({ name: 'ManageCycleOkrs' })
 export default class ManageCycleOkrs extends Vue {
   @Prop(Array) public tableData!: Object[];
   @Prop(Boolean) public loading!: boolean;
-  @Prop(Function) public reloadData!: Function;
   @Prop({ type: Number, required: true }) public total!: number;
   @PropSync('page', { type: Number, required: true }) public syncPage!: number;
   @PropSync('limit', { type: Number, required: true }) public syncLimit!: number;
@@ -95,24 +89,16 @@ export default class ManageCycleOkrs extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    name: [{ validator: this.sanitizeInput, trigger: 'change' }],
+    name: [
+      { type: 'string', required: true, message: 'Vui lòng nhập tên chu kỳ', trigger: 'blur' },
+      { min: 3, message: 'Tên chu kỳ chứa ít nhất 3 ký tự' },
+    ],
     startDate: [{ required: true, message: 'Vui lòng chọn ngày bắt đầu', trigger: ['blur', 'change'] }],
     endDate: [
       { required: true, message: 'Vui lòng chọn ngày kết thúc', trigger: ['blur', 'change'] },
       { validator: this.validateEndDate, trigger: ['blur', 'change'] },
     ],
   };
-
-  private sanitizeInput(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
-    const isEmpty = (value: string) => !value.trim().length;
-    if (value.length === 0) {
-      return callback('Vui lòng nhập tên chu kỳ');
-    }
-    if (isEmpty(value)) {
-      return callback('Tên chu kỳ không được chỉ chứa dấu cách');
-    }
-    return callback();
-  }
 
   private validateEndDate(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
     if (compareTwoDate(value, this.temporaryUpdateCycle.startDate) === 1) {
@@ -153,7 +139,6 @@ export default class ManageCycleOkrs extends Vue {
                 duration: 1000,
               });
             });
-            this.reloadData();
             this.dialogUpdateVisible = false;
           } catch (error) {
             this.$notify.error({
@@ -192,7 +177,6 @@ export default class ManageCycleOkrs extends Vue {
             duration: 1000,
           });
         });
-        this.reloadData();
       } catch (error) {
         this.$notify.error({
           title: 'Lỗi',
@@ -211,6 +195,10 @@ export default class ManageCycleOkrs extends Vue {
   private handlePagination(pagination: any) {
     const tabNow = this.$route.query.tab === undefined ? AdminTabsEn.CycleOKR : this.$route.query.tab;
     this.$router.push(`?tab=${tabNow}&page=${pagination.page}`);
+  }
+
+  private formatter(row, column, cellValue, index) {
+    return formatDateToDD(cellValue);
   }
 }
 </script>

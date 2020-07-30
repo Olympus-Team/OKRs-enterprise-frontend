@@ -10,7 +10,7 @@
       <el-table-column prop="type" label="Kiểu" :formatter="typeFormatter" />
       <el-table-column label="Ngày cập nhật">
         <template v-slot="{ row }">
-          <span>{{ new Date(row.updatedAt) | dateFormat('DD/MM/YYYY') }}</span>
+          <span>{{ row.updatedAt }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Thao tác" align="center">
@@ -80,7 +80,6 @@ import StarIcon from '@/assets/images/common/star.svg';
 export default class ManageEvaluationCriteria extends Vue {
   @Prop(Array) public tableData!: Object[];
   @Prop(Boolean) public loading!: boolean;
-  @Prop(Function) public reloadData!: Function;
   @Prop({ type: Number, required: true }) public total!: number;
   @PropSync('page', { type: Number, required: true }) public syncPage!: number;
   @PropSync('limit', { type: Number, required: true }) public syncLimit!: number;
@@ -99,21 +98,13 @@ export default class ManageEvaluationCriteria extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    content: [{ validator: this.sanitizeInput, trigger: 'change' }],
+    content: [
+      { type: 'string', required: true, message: 'Vui lòng nhập tên tiêu chí', trigger: 'blur' },
+      { min: 3, message: 'Tên tiêu chí chứa ít nhất 3 ký tự' },
+    ],
     numberOfStar: [{ type: 'number', min: 1, required: true, message: 'Số sao phải là 1 số nguyên không âm', trigger: 'blur' }],
     type: [{ type: 'string', required: true, message: 'Vui lòng chọn kiểu của tiêu chí', trigger: 'change' }],
   };
-
-  private sanitizeInput(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
-    const isEmpty = (value: string) => !value.trim().length;
-    if (value.length === 0) {
-      return callback('Vui lòng nhập tên tiêu chí');
-    }
-    if (isEmpty(value)) {
-      return callback('Tên tiêu chí không được chỉ chứa dấu cách');
-    }
-    return callback();
-  }
 
   private handleOpenDialogUpdate(row: EvaluationCriteriorDTO): void {
     this.tempUpdateCriteria = {
@@ -141,7 +132,6 @@ export default class ManageEvaluationCriteria extends Vue {
                 duration: 2000,
               });
             });
-            this.reloadData();
             this.dialogUpdateVisible = false;
           } catch (error) {
             this.$notify.error({
@@ -180,7 +170,6 @@ export default class ManageEvaluationCriteria extends Vue {
             duration: 1000,
           });
         });
-        this.reloadData();
       } catch (error) {
         this.$notify.error({
           title: 'Lỗi',

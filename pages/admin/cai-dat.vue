@@ -29,7 +29,6 @@
             <component
               :is="currentTabComponent"
               :table-data="tableData"
-              :reload-data="getListData"
               :loading="loading"
               :total="totalItems"
               :page.sync="adminParams.page"
@@ -39,11 +38,11 @@
         </el-tabs>
       </template>
     </admin-slot>
-    <new-cycle-okrs-dialog v-if="topChange.tab === 1" :cycle-visible-dialog.sync="cycleVisibleDialog" :reload-data="getListData" />
-    <new-department-dialog v-if="topChange.tab === 2" :team-visible-dialog.sync="teamVisibleDialog" :reload-data="getListData" />
-    <new-job-dialog v-if="topChange.tab === 3" :job-visible-dialog.sync="jobVisibleDialog" :reload-data="getListData" />
-    <new-criteria-dialog v-if="topChange.tab === 4" :criteria-visible-dialog.sync="criteriaVisibleDialog" :reload-data="getListData" />
-    <new-unit-dialog v-if="topChange.tab === 5" :unit-visible-dialog.sync="unitVisibleDialog" :reload-data="getListData" />
+    <new-cycle-okrs-dialog v-if="topChange.tab === 1" :cycle-visible-dialog.sync="cycleVisibleDialog" />
+    <new-department-dialog v-if="topChange.tab === 2" :team-visible-dialog.sync="teamVisibleDialog" />
+    <new-job-dialog v-if="topChange.tab === 3" :job-visible-dialog.sync="jobVisibleDialog" />
+    <new-criteria-dialog v-if="topChange.tab === 4" :criteria-visible-dialog.sync="criteriaVisibleDialog" />
+    <new-unit-dialog v-if="topChange.tab === 5" :unit-visible-dialog.sync="unitVisibleDialog" />
   </div>
 </template>
 <script lang="ts">

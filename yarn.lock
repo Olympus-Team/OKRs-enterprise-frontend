@@ -2119,11 +2119,6 @@
     lodash "^4.17.15"
     pretty "^2.0.0"
 
-"@vuejs-community/vue-filter-date-format@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@vuejs-community/vue-filter-date-format/-/vue-filter-date-format-1.5.0.tgz#a94ec54a44d076175586aeb52d7e0b7438b0bcb0"
-  integrity sha512-EWfb435gHj733PQH5M0P0HXDMGjWdGYX8YD2PYaNesCeDNFAepjBUqr31INzzg8MhwLaUdk7a8FF+aKRowxHoQ==
-
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"

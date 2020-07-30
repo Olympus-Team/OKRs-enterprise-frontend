@@ -31,7 +31,7 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { Component, Vue, PropSync, Prop } from 'vue-property-decorator';
+import { Component, Vue, PropSync } from 'vue-property-decorator';
 import { Form } from 'element-ui';
 import { EvaluationCriteriorDTO } from '@/constants/app.interface';
 import { Maps, Rule } from '@/constants/app.type';
@@ -41,7 +41,6 @@ import { EvaluationCriteriaEnum } from '@/constants/app.enum';
   name: 'CriteriaDialog',
 })
 export default class CriteriaDialog extends Vue {
-  @Prop(Function) public reloadData!: Function;
   @PropSync('criteriaVisibleDialog', { type: Boolean, required: true }) public syncCriteriaDialog!: boolean;
 
   private typeCriterias: object[] = [
@@ -57,21 +56,13 @@ export default class CriteriaDialog extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    content: [{ validator: this.sanitizeInput, trigger: ['change', 'blur'] }],
+    content: [
+      { type: 'string', required: true, message: 'Vui lòng nhập tên tiêu chí', trigger: 'blur' },
+      { min: 3, message: 'Tên tiêu chí chứa ít nhất 3 ký tự' },
+    ],
     numberOfStar: [{ type: 'number', required: true, message: 'Số sao phải là 1 số nguyên', trigger: 'blur' }],
     type: [{ type: 'string', required: true, message: 'Vui lòng chọn kiểu của tiêu chí', trigger: 'blur' }],
   };
-
-  private sanitizeInput(rule: any, value: any, callback: (message?: string) => any): (message?: string) => any {
-    const isEmpty = (value: string) => !value.trim().length;
-    if (value.length === 0) {
-      return callback('Vui lòng nhập tên tiêu chí');
-    }
-    if (isEmpty(value)) {
-      return callback('Tên tiêu chí không được chỉ chứa dấu cách');
-    }
-    return callback();
-  }
 
   private createEvaluationCriteria() {
     this.loading = true;
@@ -87,7 +78,6 @@ export default class CriteriaDialog extends Vue {
           });
           this.loading = false;
           this.clearForm();
-          this.reloadData();
           this.syncCriteriaDialog = false;
         } catch (error) {
           this.$notify.error({
