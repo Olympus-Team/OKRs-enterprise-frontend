@@ -33,10 +33,7 @@ authenticatedService.interceptors.response.use(
   (error) => {
     switch (error.response.data.statusCode) {
       case 401:
-        Notification.error({
-          ...notificationConfig,
-          message: 'Phiên hoạt động đã hết. Vui lòng đăng nhập lại',
-        });
+        window.location.href = '/dang-nhap';
         break;
       case 403:
         Notification.error({
