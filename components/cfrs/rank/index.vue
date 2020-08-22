@@ -148,7 +148,6 @@ export default class Rank extends Vue {
 @import '@/assets/scss/main.scss';
 .rank {
   color: $neutral-primary-4;
-  margin-top: $unit-5;
   @include drop-shadow;
   border-radius: $border-radius-base;
   &__col {
