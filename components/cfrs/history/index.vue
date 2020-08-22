@@ -5,7 +5,13 @@
         <div class="history__col">
           <p class="history__col__header">CFRs {{ displayNameCfrs }} gửi đi</p>
           <p v-if="!historyItems.sent.length" class="history__col__empty">Chưa có CFRs</p>
-          <div v-for="item in historyItems.sent" v-else :key="`sent-${item.id}`" class="history-item" @click="viewDetailCfrs(item, 'sent')">
+          <div
+            v-for="(item, index) in historyItems.sent"
+            v-else
+            :key="`${index}-${item.id}`"
+            class="history-item"
+            @click="viewDetailCfrs(item, 'sent')"
+          >
             <div class="item__left">
               <div class="item__left--icon">
                 <div :class="['icon__type', isFeedback(item.type)]">
@@ -69,7 +75,13 @@
         <div class="history__col">
           <p class="history__col__header">CFRs toàn công ty</p>
           <p v-if="!historyItems.all.length" class="history__col__empty">Chưa có CFRs</p>
-          <div v-for="item in historyItems.all" v-else :key="item.id" class="history-item" @click="viewDetailCfrs(item, 'all')">
+          <div
+            v-for="(item, index) in historyItems.all"
+            v-else
+            :key="`${index}-${item.id}`"
+            class="history-item"
+            @click="viewDetailCfrs(item, 'all')"
+          >
             <div class="item__left">
               <div class="item__left--icon">
                 <div :class="['icon__type', isFeedback(item.type)]">
@@ -226,7 +238,6 @@ export default class History extends Vue {
 @import '@/assets/scss/main.scss';
 .history {
   color: $neutral-primary-4;
-  margin-top: $unit-5;
   @include drop-shadow;
   border-radius: $border-radius-base;
   &__col {
