@@ -200,7 +200,6 @@ export default class CheckinPage extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 .checkins {
-  padding: $unit-10 $unit-8 0 $unit-10;
   &__content {
     background-color: $white;
     padding: $unit-8;

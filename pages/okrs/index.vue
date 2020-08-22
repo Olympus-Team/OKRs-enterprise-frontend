@@ -1,5 +1,5 @@
 <template>
-  <div v-loading.fullscreen.lock="loadingForm" class="okrs-page">
+  <div class="okrs-page">
     <el-row class="okrs-page__top" type="flex" justify="space-between">
       <el-col :xs="24" :sm="24" :md="12" :lg="12" class="okrs-page__top--searching">
         <!-- <base-top-search-cycle :cycle-id.sync="cycleId" /> -->
@@ -18,16 +18,14 @@
         </el-dropdown>
       </el-col>
     </el-row>
-    <div>
-      <item-okrs
-        v-for="(item, index) in itemOKRsData"
-        :key="item.textHeader"
-        :index-item="index"
-        :text-header="item.textHeader"
-        :table-data="item.tableData"
-        :reload-data="getDashBoardOkrs"
-      />
-    </div>
+    <item-okrs
+      v-for="(item, index) in itemOKRsData"
+      :key="item.textHeader"
+      :index-item="index"
+      :text-header="item.textHeader"
+      :table-data="item.tableData"
+      :reload-data="getDashBoardOkrs"
+    />
     <create-okrs-dialog
       v-if="visibleCreateOkrsDialog"
       :is-company-okrs="isCompanyOkrs"
@@ -102,17 +100,13 @@ export default class OKRsPage extends Vue {
 <style lang="scss">
 @import '@/assets/scss/main.scss';
 .okrs-page {
-  width: 85%;
+  width: 98%;
   &__top {
     @include breakpoint-down(phone) {
       flex-direction: column;
     }
-    &--searching {
-      padding: $unit-7 0 $unit-4 0;
-    }
     &--button {
       display: flex;
-      margin: $unit-7 0 $unit-4 0;
       justify-content: flex-end;
       @include breakpoint-down(phone) {
         justify-content: center;

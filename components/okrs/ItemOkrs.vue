@@ -126,7 +126,7 @@ export default class OKRsItem extends Vue {
 .item-okrs {
   background: $white;
   color: $neutral-primary-4;
-  margin-top: $unit-5;
+  margin-top: $unit-8;
   border-radius: $border-radius-base;
   @include drop-shadow;
   &__header {

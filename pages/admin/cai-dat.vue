@@ -253,9 +253,7 @@ export default class SettingCompanyPage extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 .admin {
-  margin-left: $unit-9;
   &__top {
-    margin: $unit-8 0 $unit-8 0;
     display: flex;
     justify-content: space-between;
     &__left {
@@ -268,7 +266,7 @@ export default class SettingCompanyPage extends Vue {
     }
   }
   &__tab {
-    margin: $unit-4 0 0 0;
+    margin: $unit-8 0;
   }
   .el-button {
     height: 100%;

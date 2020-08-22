@@ -166,7 +166,6 @@ export default class Navbar extends Vue {
   }
 }
 .item {
-  margin: 0 $unit-4;
   height: 100%;
   vertical-align: text-bottom;
   cursor: pointer;

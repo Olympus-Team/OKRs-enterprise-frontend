@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loadingTab" class="history">
-    <el-row :gutter="20" class>
+    <el-row :gutter="30" class>
       <el-col v-loading="loadingPersonalTab" :md="8" :lg="8">
         <div class="history__col">
           <p class="history__col__header">CFRs {{ displayNameCfrs }} gửi đi</p>

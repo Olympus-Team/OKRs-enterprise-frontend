@@ -71,8 +71,7 @@ export default class ProgressBarComponent extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 .progress {
-  margin-top: $unit-4;
-  margin-bottom: $unit-4;
+  margin: $unit-8 0;
   padding: $unit-3 $unit-7;
   background: $white;
   border-radius: $unit-1;

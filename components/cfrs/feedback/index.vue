@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loadingTab" class="feedback">
-    <el-row :gutter="20" class>
+    <el-row :gutter="30" class>
       <el-col v-if="listWatingFeedback.inferior" :md="12" :lg="12">
         <div class="feedback__col">
           <p class="feedback__col__header">{{ displayHeader('inferior') }}</p>

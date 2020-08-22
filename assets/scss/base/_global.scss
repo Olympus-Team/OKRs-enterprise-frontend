@@ -91,6 +91,7 @@ button:focus {
     line-height: 2.5rem;
   }
 }
+
 .el-dialog__footer {
   padding: 10px 20px;
   border-top: 1px solid #dfe3e8;
@@ -108,6 +109,7 @@ button:focus {
 .el-dialog__headerbtn .el-dialog__close:hover {
   color: $purple-primary-5;
 }
+
 // End Dialog
 
 // Message Box
@@ -140,9 +142,11 @@ button:focus {
     }
   }
 }
+
 .el-message-box__headerbtn .el-message-box__close:hover {
   color: $purple-primary-5;
 }
+
 // End Message Box
 
 // El Input
@@ -150,6 +154,7 @@ button:focus {
 .el-input__inner:focus {
   border-color: $purple-primary-5;
 }
+
 // End El Input
 
 // El textaria
@@ -166,6 +171,7 @@ button:focus {
     &::before {
       display: none;
     }
+
     &::after {
       content: '*';
       color: #ff4949;
@@ -190,6 +196,7 @@ button:focus {
 .el-checkbox__input.is-checked + .el-checkbox__label {
   color: $purple-primary-5;
 }
+
 // End El checkbox
 
 // El Select
@@ -204,6 +211,7 @@ button:focus {
 .el-select-dropdown__item.selected {
   color: $purple-primary-5;
 }
+
 // End El Select
 
 // El Radio Button
@@ -219,21 +227,26 @@ button:focus {
   border-color: $purple-primary-5;
   background: $purple-primary-5;
 }
+
 // End El Radio Button
 
 // EL Tabs
 .el-tabs__nav-wrap::after {
   background-color: $neutral-primary-0;
 }
+
 .el-tabs__item.is-active {
   color: $purple-primary-4;
 }
+
 .el-tabs__active-bar {
   background-color: $purple-primary-3;
 }
+
 .el-tabs__item:hover {
   color: $purple-primary-4;
 }
+
 .el-tabs__item {
   color: $neutral-primary-2;
 }
@@ -258,4 +271,8 @@ button:focus {
 
 .el-progress-bar__inner {
   max-width: 100% !important;
+}
+
+.el-tabs__header {
+  margin: $unit-8 0;
 }

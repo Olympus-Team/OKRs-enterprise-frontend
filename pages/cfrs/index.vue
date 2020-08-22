@@ -100,12 +100,8 @@ export default class CFRs extends Vue {
     @include breakpoint-down(phone) {
       flex-direction: column;
     }
-    &--searching {
-      padding: $unit-7 0 $unit-4 0;
-    }
     &--button {
       display: flex;
-      margin: $unit-7 0 $unit-4 0;
       justify-content: flex-end;
       @include breakpoint-down(phone) {
         justify-content: center;

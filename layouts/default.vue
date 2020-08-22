@@ -27,8 +27,9 @@ $bg-gray-common: #e5e5e5;
   &__app {
     background-color: $bg-gray-common;
     min-height: calc(100vh - 60px);
-    margin-left: calc(170px + 2rem);
+    margin-left: 170px;
     width: 100%;
+    padding: $unit-8;
   }
 }
 </style>
