@@ -9,13 +9,13 @@
         <el-button v-if="isNotAdminButton()" class="el-button el-button--purple el-button-medium" icon="el-icon-plus" @click="addPersonalOkrs"
           >Tạo OKRs</el-button
         >
-        <el-dropdown v-else class="create-okr-dropdown" trigger="click" @command="handleCommand">
-          <el-button class="el-button el-button--purple el-button-medium" icon="el-icon-plus">Tạo OKRs</el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="personal">Tạo OKRs cá nhân</el-dropdown-item>
-            <el-dropdown-item command="company">Tạo OKRs công ty</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <el-popover v-else v-model="visible" placement="bottom" width="160">
+          <div style="text-align: center;">
+            <el-button type="text" class="okrs-page__item" @click="handleCommand('personal')">Tạo OKRs cá nhân</el-button>
+            <el-button type="text" style="margin: 0;" class="okrs-page__item" @click="handleCommand('company')">Tạo OKRs công ty</el-button>
+          </div>
+          <el-button slot="reference" class="el-button el-button--purple el-button-medium" icon="el-icon-plus">Tạo OKRs</el-button>
+        </el-popover>
       </el-col>
     </el-row>
     <item-okrs
@@ -53,6 +53,7 @@ export default class OKRsPage extends Vue {
   private loadingForm: boolean = false;
   private visibleCreateOkrsDialog = false;
   private isCompanyOkrs: boolean = false;
+  private visible: boolean = false;
 
   private handleCommand(command: string) {
     if (command === 'company') {
@@ -111,6 +112,15 @@ export default class OKRsPage extends Vue {
       @include breakpoint-down(phone) {
         justify-content: center;
       }
+    }
+  }
+  &__item {
+    color: $purple-primary-4;
+    &:hover {
+      color: $purple-primary-5;
+    }
+    &:active {
+      color: $purple-primary-5;
     }
   }
   .el-table__empty-block {
