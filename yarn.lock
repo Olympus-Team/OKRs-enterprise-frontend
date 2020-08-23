@@ -3,9 +3,9 @@
 
 
 "@amcharts/amcharts4@^4.9.34":
-  version "4.9.34"
-  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4/-/amcharts4-4.9.34.tgz#239cc7ccd07a7334e115d5f4d4de26fba40e5477"
-  integrity sha512-pD8e9dZonNdpjUh/ojxlTUlwmXxgSxsUpQOdc4W6K/coH3+314EGT70prbt41arVRzJAZVkZ27zVnAG5OPmePQ==
+  version "4.9.37"
+  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4/-/amcharts4-4.9.37.tgz#ea97c265450bee0c1b71e362f11dccc754847b89"
+  integrity sha512-sGBQqSuwHMQfvyTnEvgdT3QoaFanzCzGDoAnjiqoF4TnRkv7Y5M4USqEOOFP5rOs7VVSIJD5h23gvp6/SBvB3Q==
   dependencies:
     "@babel/runtime" "^7.6.3"
     "@types/regression" "^2.0.0"
@@ -832,14 +832,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@^7.10.4", "@babel/runtime@^7.8.4":
-  version "7.10.4"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.4.tgz#a6724f1a6b8d2f6ea5236dbfe58c7d7ea9c5eb99"
-  integrity sha512-UpTN5yUJr9b4EX2CnGNWIvER7Ab83ibv0pcvvHc4UOdrBI5jb8bj+32cCwPX6xu0mt2daFNjYhoi+X7beH0RSw==
-  dependencies:
-    regenerator-runtime "^0.13.4"
-
-"@babel/runtime@^7.6.3":
+"@babel/runtime@^7.10.4", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.4":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
