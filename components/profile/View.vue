@@ -108,7 +108,7 @@ import UserRepository from '@/repositories/UserRepository';
 import { Maps, Rule } from '@/constants/app.type';
 import { AuthMutation } from '@/store/auth';
 import { getTokenCookie } from '@/utils/cookies';
-import { MutationState, GetterState } from '@/constants/app.enum';
+import { MutationState, GetterState } from '@/constants/app.vuex';
 import { formatDateToDD } from '@/utils/dateParser';
 @Component<ViewProfile>({
   name: 'ViewProfile',

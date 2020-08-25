@@ -1,6 +1,6 @@
 import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
-export default ({ app }, inject) => {
+export default (_, inject: any) => {
   inject(
     'md',
     new MarkdownIt({

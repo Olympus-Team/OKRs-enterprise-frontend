@@ -24,7 +24,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import CycleRepository from '@/repositories/CycleRepository';
 import DashboardRepository from '@/repositories/DashboardRepository';
-import { GetterState } from '@/constants/app.enum';
+import { GetterState } from '@/constants/app.vuex';
 @Component<HomePage>({
   name: 'HomePage',
   head() {

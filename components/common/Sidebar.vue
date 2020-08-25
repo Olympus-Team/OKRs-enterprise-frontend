@@ -51,7 +51,7 @@ import Checkin from '@/assets/images/common/sidebar/checkin.svg';
 import OKRs from '@/assets/images/common/sidebar/okrs.svg';
 import Setting from '@/assets/images/common/sidebar/setting.svg';
 import HumanResources from '@/assets/images/common/sidebar/nhan-su.svg';
-import { GetterState } from '@/constants/app.enum';
+import { GetterState } from '@/constants/app.vuex';
 @Component<SideBar>({
   name: 'SideBar',
   components: {

@@ -39,7 +39,7 @@ import InputAlignOkrs from './InputAlignKrs.vue';
 import IconAddKrs from '@/assets/images/okrs/add-krs.svg';
 import CycleRepository from '@/repositories/CycleRepository';
 import OkrsRepository from '@/repositories/OkrsRepository';
-import { DispatchAction, MutationState } from '@/constants/app.enum';
+import { DispatchAction, MutationState } from '@/constants/app.vuex';
 import { confirmWarningConfig, notificationConfig } from '@/constants/app.constant';
 import { PayloadOkrs } from '@/constants/app.interface';
 

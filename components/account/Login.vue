@@ -39,7 +39,7 @@
         ></el-input>
       </el-form-item>
       <el-row type="flex" justify="space-between">
-        <el-col :span="12"> </el-col>
+        <el-col :span="12"></el-col>
         <el-col :span="12">
           <nuxt-link class="login-form__link" to="/quen-mat-khau">Quên mật khẩu ?</nuxt-link>
         </el-col>
@@ -55,7 +55,7 @@ import { Form as LoginForm, Message } from 'element-ui';
 import { LoginDTO } from '@/constants/app.interface';
 import { authEnpoint } from '@/constants/app.constant';
 import { Maps, Rule } from '@/constants/app.type';
-import { DispatchAction } from '@/constants/app.enum';
+import { DispatchAction } from '@/constants/app.vuex';
 @Component<LoginSComponent>({
   name: 'LoginSComponent',
 })

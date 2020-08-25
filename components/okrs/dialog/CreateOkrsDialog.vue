@@ -8,7 +8,7 @@
     class="company-okrs"
   >
     <el-steps :active="active" finish-status="success" :align-center="true">
-      <el-step title="Mục tiêu"> </el-step>
+      <el-step title="Mục tiêu"></el-step>
       <el-step title="Các kết quả then chốt"></el-step>
       <el-step v-if="!isCompanyOkrs" title="Liên kết mục tiêu"></el-step>
     </el-steps>
@@ -31,7 +31,7 @@
 <script lang="ts">
 import { Component, Vue, PropSync, Prop } from 'vue-property-decorator';
 import { confirmWarningConfig } from '@/constants/app.constant';
-import { DispatchAction } from '@/constants/app.enum';
+import { DispatchAction } from '@/constants/app.vuex';
 @Component<CreateCompanyOkrs>({
   name: 'CreateCompanyOkrs',
 })

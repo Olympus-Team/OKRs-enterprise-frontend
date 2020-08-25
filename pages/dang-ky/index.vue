@@ -27,7 +27,7 @@ import { notifyErrorRegister } from '@/constants/app.notify';
   async asyncData({ query, redirect }) {
     if (query.token) {
       try {
-        await AuthRepository.verifyLinkInvite(query.token);
+        await AuthRepository.verifyLinkInvite(query.token as string);
         return {
           token: query.token,
         };

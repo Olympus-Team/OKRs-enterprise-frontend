@@ -109,7 +109,7 @@
 import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import { Form } from 'element-ui';
-import { GetterState } from '@/constants/app.enum';
+import { GetterState } from '@/constants/app.vuex';
 import CheckinRepository from '@/repositories/CheckinRepository';
 import { statusCheckin, confidentLevel, notificationConfig } from '@/constants/app.constant';
 import { formatDateToYYYY } from '@/utils/dateParser';

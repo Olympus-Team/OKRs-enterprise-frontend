@@ -25,7 +25,7 @@ import { notifyErrorResetPassword } from '@/constants/app.notify';
   async asyncData({ query, redirect }) {
     if (query.token) {
       try {
-        await AuthRepository.verifyResetPassword(query.token);
+        await AuthRepository.verifyResetPassword(query.token as string);
         return {
           token: query.token,
         };

@@ -42,12 +42,15 @@
       </div>
       <el-row class="change-password__form__action" type="flex" justify="space-between">
         <el-col :span="24">
-          <el-button :loading="loading" class="el-button el-button--purple el-button--medium" @click="handleUpdatePasswordForm">
-            Đổi mật khẩu
-          </el-button>
+          <el-button :loading="loading" class="el-button el-button--purple el-button--medium" @click="handleUpdatePasswordForm"
+            >Đổi mật khẩu</el-button
+          >
         </el-col>
         <el-col :span="24">
-          <nuxt-link to="/"><strong>Quay lại trang </strong><span class="change-password__form__action--dashboard">Dashboard</span></nuxt-link>
+          <nuxt-link to="/">
+            <strong>Quay lại trang</strong>
+            <span class="change-password__form__action--dashboard">Dashboard</span>
+          </nuxt-link>
         </el-col>
       </el-row>
     </el-form>
@@ -60,7 +63,7 @@ import { notificationConfig } from '@/constants/app.constant';
 import { Maps, Rule } from '@/constants/app.type';
 import { ChangePasswordDTO } from '@/constants/app.interface';
 import UserRepository from '@/repositories/UserRepository';
-import { DispatchAction } from '@/constants/app.enum';
+import { DispatchAction } from '@/constants/app.vuex';
 
 @Component<ChangePasswordDialog>({
   name: 'ChangePasswordDialog',
@@ -114,7 +117,7 @@ export default class ChangePasswordDialog extends Vue {
             ...notificationConfig,
             message: 'Đổi mật khẩu thành công',
           });
-          this.$store.dispatch(DispatchAction.CLEAR);
+          this.$store.dispatch(DispatchAction.CLEAR_AUTH);
           this.$router.push('/');
         } catch (error) {
           setTimeout(() => {

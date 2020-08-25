@@ -30,9 +30,10 @@ import Rank from '@/components/cfrs/rank/index.vue';
 
 import OkrsRepository from '@/repositories/OkrsRepository';
 
-import { TabCfr, TabCfrEng, MutationState } from '@/constants/app.enum';
+import { TabCfr, TabCfrEng } from '@/constants/app.enum';
 import { ParamsCFR } from '@/constants/app.interface';
 import { pageLimit } from '@/constants/app.constant';
+import { MutationState } from '@/constants/app.vuex';
 
 @Component<CFRs>({
   name: 'CFRs',

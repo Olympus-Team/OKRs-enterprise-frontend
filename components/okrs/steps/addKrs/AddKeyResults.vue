@@ -35,7 +35,7 @@ import { Form } from 'element-ui';
 import IconAttention from '@/assets/images/okrs/attention.svg';
 import IconAddKrs from '@/assets/images/okrs/add-krs.svg';
 import { KeyResultDTO, PayloadOkrs } from '@/constants/app.interface';
-import { MutationState, DispatchAction } from '@/constants/app.enum';
+import { MutationState, DispatchAction } from '@/constants/app.vuex';
 import { confirmWarningConfig, notificationConfig } from '@/constants/app.constant';
 import OkrsRepository from '@/repositories/OkrsRepository';
 

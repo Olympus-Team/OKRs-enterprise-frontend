@@ -50,13 +50,14 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 
 import { notificationConfig, pageLimit } from '@/constants/app.constant';
-import { TabCheckins, GetterState, MutationState } from '@/constants/app.enum';
+import { TabCheckins } from '@/constants/app.enum';
 import RequestCheckin from '@/components/checkin/RequestCheckin.vue';
 import MyOkrsCheckin from '@/components/checkin/MyOkrsCheckin.vue';
 import CheckinCompany from '@/components/checkin/CheckinCompany.vue';
 import CycleRepository from '@/repositories/CycleRepository';
 import CheckinRepository from '@/repositories/CheckinRepository';
 import { SelectOptionDTO } from '@/constants/app.interface';
+import { GetterState, MutationState } from '@/constants/app.vuex';
 @Component<CheckinPage>({
   name: 'CheckinPage',
   head() {

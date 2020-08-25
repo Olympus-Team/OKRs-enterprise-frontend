@@ -34,7 +34,7 @@ export default class CheckinPage extends Vue {
 
   private async getCheckin() {
     this.loading = true;
-    await CheckinRepository.getDetail(this.$route.params.id)
+    await CheckinRepository.getDetail(+this.$route.params.id)
       .then((res) => {
         if (res.data.data.checkinDetail.length === 0) {
           this.isNew = true;

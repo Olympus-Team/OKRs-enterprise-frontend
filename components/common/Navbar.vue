@@ -89,7 +89,7 @@ import IconLogout from '@/assets/images/common/navbar/logout.svg';
 import IconProfile from '@/assets/images/common/navbar/profile.svg';
 import IconSetting from '@/assets/images/common/navbar/setting.svg';
 import IconHr from '@/assets/images/common/navbar/hr.svg';
-import { DispatchAction, GetterState } from '@/constants/app.enum';
+import { DispatchAction, GetterState } from '@/constants/app.vuex';
 @Component<Navbar>({
   name: 'Navbar',
   components: {
@@ -112,7 +112,7 @@ export default class Navbar extends Vue {
   private show: boolean = true;
 
   private async logout() {
-    await this.$store.dispatch(DispatchAction.CLEAR);
+    await this.$store.dispatch(DispatchAction.CLEAR_AUTH);
     this.$router.push('/login');
   }
 

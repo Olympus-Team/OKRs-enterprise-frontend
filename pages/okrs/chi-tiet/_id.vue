@@ -52,7 +52,7 @@ import { Component, Vue, PropSync, Prop, Watch } from 'vue-property-decorator';
 
 import OkrsRepository from '@/repositories/OkrsRepository';
 import { confirmWarningConfig, notificationConfig } from '@/constants/app.constant';
-import { MutationState, DispatchAction } from '@/constants/app.enum';
+import { MutationState, DispatchAction } from '@/constants/app.vuex';
 @Component<OkrsDetailPage>({
   name: 'OkrsDetailPage',
   head() {
