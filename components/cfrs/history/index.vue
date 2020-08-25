@@ -110,7 +110,14 @@
         </infinite-loading>
       </el-col>
     </el-row>
-    <cfrs-detail-history :visible-dialog.sync="visibleDetailDialog" :item-data="itemDataCfrs.data" :type="itemDataCfrs.type" />
+    <transition name="el-zoom-in-center">
+      <cfrs-detail-history
+        v-if="visibleDetailDialog"
+        :visible-dialog.sync="visibleDetailDialog"
+        :item-data="itemDataCfrs.data"
+        :type="itemDataCfrs.type"
+      />
+    </transition>
   </div>
 </template>
 

@@ -58,7 +58,7 @@ import { CfrsDTO } from '@/constants/app.interface';
   async mounted() {
     await this.getListEvaluationCriterias();
   },
-  destroyed() {
+  beforeDestroy() {
     this.reloadData();
   },
 })

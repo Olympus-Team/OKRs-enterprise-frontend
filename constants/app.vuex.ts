@@ -21,7 +21,7 @@ export enum MutationState {
   SET_USERS = 'user/setUsers',
   SET_CURRENT_CYCLE = 'cycle/setCurrentCycle',
   SET_OBJECTIVE = 'okrs/setObjective',
-  SET_KR = 'okrs/setKeyResult',
+  SET_KRS = 'okrs/setKeyResults',
   CLEAR_KRS = 'okrs/clearKrs',
   SET_OKRS_DETAIL = 'okrs/setOkrsDetail',
   SET_TEMP_CYCLE = 'cycle/setTempCycle',

@@ -48,6 +48,9 @@ import { PayloadOkrs } from '@/constants/app.interface';
   components: {
     IconAddKrs,
   },
+  beforeCreate() {
+    this.$store.dispatch(DispatchAction.SET_STAFF_OKRS, { cycleId: this.$store.state.cycle.cycle.id, type: 3 });
+  },
 })
 export default class AddAlignObjeciveStep extends Vue {
   @Prop(Function) public reloadData!: Function;

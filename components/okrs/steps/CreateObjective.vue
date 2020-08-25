@@ -125,7 +125,7 @@ export default class CreateObjectiveStep extends Vue {
     }
   }
 
-  @Watch('tempObjective.cycleId', { deep: true, immediate: true })
+  @Watch('tempObjective.cycleId', { immediate: true })
   private async getListOkrs() {
     if (!this.isCompanyOkrs) {
       this.loadingSelect = true;

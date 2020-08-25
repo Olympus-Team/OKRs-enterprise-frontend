@@ -68,6 +68,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import IconEllipse from '@/assets/images/okrs/ellipse.svg';
 import { DialogTooltipAction } from '@/constants/app.interface';
+import { DispatchAction } from '@/constants/app.vuex';
 @Component<OKRsItem>({
   name: 'OKRsItem',
   components: {

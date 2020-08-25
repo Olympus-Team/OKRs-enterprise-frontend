@@ -24,7 +24,7 @@ import { Maps, Rule } from '@/constants/app.type';
   components: {
     IconDelete,
   },
-  created() {
+  mounted() {
     this.itemsAlignOkrs = this.$store.state.okrs.staffOkrs.map((item) => ({ ...item }));
   },
 })

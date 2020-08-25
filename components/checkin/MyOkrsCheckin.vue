@@ -63,7 +63,14 @@
     </el-table>
 
     <!-- show dialog KRs -->
-    <el-dialog :visible.sync="showDialogKRs" width="90%" placement="bottom-start" :title="keyResults.title" :before-close="handleCloseDialog">
+    <el-dialog
+      v-if="showDialogKRs"
+      :visible.sync="showDialogKRs"
+      width="90%"
+      placement="bottom-start"
+      :title="keyResults.title"
+      :before-close="handleCloseDialog"
+    >
       <el-row>
         <el-col :span="24">
           <el-table empty-text="Không có dữ liệu" class="myOKRs" :data="keyResults.keyResults" style="width: 100%;">

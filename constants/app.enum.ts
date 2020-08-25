@@ -42,7 +42,7 @@ export enum UserStatus {
 }
 
 export enum TabCfr {
-  Feedback = 'Danh sách chờ Feedback',
+  Feedback = 'Danh sách chờ phản hồi',
   History = 'Lịch sử',
   Rank = 'Bảng xếp hạng',
 }

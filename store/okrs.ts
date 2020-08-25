@@ -4,7 +4,7 @@ import OkrsRepository from '@/repositories/OkrsRepository';
 
 export enum OkrsMutation {
   SET_OBJECTIVE = 'setObjective',
-  SET_KEY_RESULT = 'setKeyResult',
+  SET_KEY_RESULTS = 'setKeyResults',
   CLEAR_KRS = 'clearKrs',
   SET_STAFF_OKRS = 'setStaffOkrs',
 }
@@ -31,13 +31,14 @@ export const getters: GetterTree<RootState, RootState> = {
 
 export const mutations: MutationTree<RootState> = {
   [OkrsMutation.SET_OBJECTIVE]: (state, objective: ObjectiveDTO) => (state.objective = objective),
-  [OkrsMutation.SET_KEY_RESULT]: (state, keyResult: KeyResultDTO) => state.keyResults!.push(keyResult),
+  [OkrsMutation.SET_KEY_RESULTS]: (state, keyResults: KeyResultDTO[]) => (state.keyResults = [...keyResults]),
   [OkrsMutation.CLEAR_KRS]: (state) => (state.keyResults = []),
   [OkrsMutation.SET_STAFF_OKRS]: (state, staffOkrs: any) => (state.staffOkrs = staffOkrs),
 };
 
 export interface OKRsAction<S, R> extends ActionTree<S, R> {
   setStaffOkrs(context: ActionContext<S, R>, payload: any): Promise<void>;
+  clearStaffOkrs(context: ActionContext<S, R>, payload: any): void;
   clearOkrs(context: ActionContext<S, R>): void;
 }
 
@@ -47,6 +48,9 @@ export const actions: OKRsAction<OkrsState, RootState> = {
       const { data } = await OkrsRepository.getListOkrs(cycleId, type);
       commit(OkrsMutation.SET_STAFF_OKRS, Object.freeze(data.data));
     } catch (error) {}
+  },
+  clearStaffOkrs({ commit }) {
+    commit(OkrsMutation.SET_STAFF_OKRS, []);
   },
   clearOkrs({ commit }): void {
     commit(OkrsMutation.SET_OBJECTIVE, null);

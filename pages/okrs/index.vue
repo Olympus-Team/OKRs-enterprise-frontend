@@ -31,12 +31,14 @@
         :reload-data="getDashBoardOkrs"
       />
     </div>
-    <create-okrs-dialog
-      v-if="visibleCreateOkrsDialog"
-      :is-company-okrs="isCompanyOkrs"
-      :visible-dialog.sync="visibleCreateOkrsDialog"
-      :reload-data="getDashBoardOkrs"
-    />
+    <transition name="el-fade-in">
+      <create-okrs-dialog
+        v-if="visibleCreateOkrsDialog"
+        :is-company-okrs="isCompanyOkrs"
+        :visible-dialog.sync="visibleCreateOkrsDialog"
+        :reload-data="getDashBoardOkrs"
+      />
+    </transition>
   </div>
 </template>
 <script lang="ts">
@@ -47,20 +49,20 @@ import OkrsRepository from '@/repositories/OkrsRepository';
   name: 'OKRsPage',
   async created() {
     await this.getDashBoardOkrs();
-    this.$store.dispatch(DispatchAction.SET_STAFF_OKRS, { cycleId: this.$store.state.cycle.cycle.id, type: 3 });
   },
   mounted() {
     this.loadingComponent = true;
+    this.$store.dispatch(DispatchAction.SET_STAFF_OKRS, { cycleId: this.$store.state.cycle.cycle.id, type: 3 });
     setTimeout(() => {
       this.loadingComponent = false;
     }, 500);
+    setTimeout(() => {
+      this.$store.dispatch(DispatchAction.SET_MEASURE_UNITS);
+    }, 2000);
   },
   beforeDestroy() {
     this.$store.commit(MutationState.SET_TEMP_CYCLE, this.$store.state.cycle.cycle.id);
-  },
-  destroyed() {
     this.$store.dispatch(DispatchAction.CLEAR_STAFF_OKRS);
-    this.$store.dispatch(DispatchAction.CLEAR_MEASURE_UNITS);
   },
 })
 export default class OKRsPage extends Vue {
@@ -96,10 +98,6 @@ export default class OKRsPage extends Vue {
     try {
       const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
       const { data } = await OkrsRepository.getOkrsDashboard(cycleId);
-      console.log(': ------------------------------------------');
-      console.log('OKRsPage -> getDashBoardOkrs -> data', data);
-      console.log(': ------------------------------------------');
-
       this.itemOKRsData[0].tableData = Object.freeze(data.data.root);
       this.itemOKRsData[1].tableData = Object.freeze(data.data.team);
       this.itemOKRsData[2].tableData = Object.freeze(data.data.personal);
