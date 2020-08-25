@@ -5,17 +5,17 @@
         <base-top-search-cycle @changeCycleData="getDashBoardOkrs" />
       </el-col>
       <el-col :xs="24" :sm="24" :md="8" :lg="8" class="okrs-page__top--button">
-        <el-button v-if="isNotAdminButton()" class="el-button el-button--purple el-button-medium" icon="el-icon-plus" @click="addPersonalOkrs">
-          Tạo OKRs
-        </el-button>
+        <el-button v-if="isNotAdminButton()" class="el-button el-button--purple el-button-medium" icon="el-icon-plus" @click="addPersonalOkrs"
+          >Tạo OKRs</el-button
+        >
         <el-popover v-else v-model="visible" placement="bottom" width="160">
           <div style="text-align: center;">
-            <el-button class="okrs-page__item el-button el-button--white el-button--small" @click="handleCommand('personal')">
-              Tạo OKRs cá nhân
-            </el-button>
-            <el-button class="okrs-page__item el-button el-button--white el-button--small" @click="handleCommand('company')">
-              Tạo OKRs công ty
-            </el-button>
+            <el-button class="okrs-page__item el-button el-button--white el-button--small" @click="handleCommand('personal')"
+              >Tạo OKRs cá nhân</el-button
+            >
+            <el-button class="okrs-page__item el-button el-button--white el-button--small" @click="handleCommand('company')"
+              >Tạo OKRs công ty</el-button
+            >
           </div>
           <el-button slot="reference" class="el-button el-button--purple el-button-medium" icon="el-icon-plus">Tạo OKRs</el-button>
         </el-popover>
@@ -99,7 +99,9 @@ export default class OKRsPage extends Vue {
       const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
       const { data } = await OkrsRepository.getOkrsDashboard(cycleId);
       this.itemOKRsData[0].tableData = Object.freeze(data.data.root);
-      this.itemOKRsData[1].tableData = Object.freeze(data.data.team);
+      if (this.$store.state.auth.user.role.name !== 'ADMIN') {
+        this.itemOKRsData[1].tableData = Object.freeze(data.data.team);
+      }
       this.itemOKRsData[2].tableData = Object.freeze(data.data.personal);
       setTimeout(() => {
         this.loadingForm = false;

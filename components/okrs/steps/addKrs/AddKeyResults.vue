@@ -62,7 +62,7 @@ export default class CreateObjectiveStep extends Vue {
   private loading: boolean = false;
   private objectiveTitle: string = '';
   private krFormItems: any[] = [];
-  private attentionsText: string[] = ['Ít nhất phải có 2 kết quả then chốt', 'Không quá 5 kết quả then chốt cho 1 mục tiêu'];
+  private attentionsText: string[] = ['Nên có ít nhất phải có 2 kết quả then chốt', 'Không nên quá 5 kết quả then chốt cho 1 mục tiêu'];
 
   private addNewKRs() {
     this.formLoading = true;

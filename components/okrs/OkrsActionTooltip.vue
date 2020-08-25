@@ -6,7 +6,7 @@
         <div v-if="editable">
           <p @click="openUpdateDialog(1)">Cập nhật</p>
           <p @click="openUpdateDialog(2)">Liên kết</p>
-          <p @click="handleDeleteOKrs">Xóa</p>
+          <p style="color: #e53e3e;" @click="handleDeleteOKrs">Xóa</p>
         </div>
       </div>
       <i slot="reference" class="el-icon-more okrs-tooltip__icon"></i>
