@@ -71,7 +71,6 @@ import { Form } from 'element-ui';
 import { max255Char } from '../account/account.constant';
 import { Maps, Rule } from '@/constants/app.type';
 import IconDelete from '@/assets/images/common/delete.svg';
-import MeasureUnitRepository from '@/repositories/MeasureUnitRepository';
 import OkrsRepository from '@/repositories/OkrsRepository';
 import { notificationConfig } from '@/constants/app.constant';
 

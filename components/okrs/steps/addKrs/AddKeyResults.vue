@@ -177,7 +177,7 @@ export default class CreateObjectiveStep extends Vue {
           this.$store.commit(MutationState.SET_KR, item);
         });
         this.$store.commit(MutationState.SET_OBJECTIVE, tempObjective);
-        this.$store.dispatch(DispatchAction.STAFF_OKRS, { cycleId: this.$store.state.cycle.cycle.id, type: 3 });
+        this.$store.dispatch(DispatchAction.SET_STAFF_OKRS, { cycleId: this.$store.state.cycle.cycle.id, type: 3 });
         this.syncActive++;
         this.loading = false;
       } else {

@@ -66,7 +66,7 @@ import CreateFeedback from './Create.vue';
 import CfrsRepository from '@/repositories/CfrsRepository';
 import IconStarDashboard from '@/assets/images/dashboard/star-dashboard.svg';
 import CycleRepository from '@/repositories/CycleRepository';
-import { MutationState } from '@/constants/app.enum';
+import { MutationState } from '@/constants/app.vuex';
 @Component<Rank>({
   name: 'Rank',
   components: {

@@ -1,13 +1,13 @@
 <template>
-  <el-row v-if="cycleId" class="top-search-cycle">
+  <el-row class="top-search-cycle">
     <el-col :xs="8" :sm="8" :md="8" :lg="8">
-      <el-select v-model.number="cycleId" filterable placeholder="Nhập chu kỳ" no-match-text="Không tìm thấy chu kỳ">
+      <el-select v-model="topSearch.cycleId" filterable placeholder="Nhập chu kỳ" no-match-text="Không tìm thấy chu kỳ">
         <el-option v-for="cycle in listCycles" :key="cycle.id" :label="cycle.label" :value="cycle.id" />
       </el-select>
     </el-col>
     <el-col :xs="12" :sm="12" :md="12" :lg="12">
       <el-autocomplete
-        v-model="textSearch"
+        v-model="topSearch.textSearch"
         prefix-icon="el-icon-search"
         :fetch-suggestions="querySearch"
         :trigger-on-focus="false"
@@ -20,7 +20,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import CycleRepository from '@/repositories/CycleRepository';
-import { MutationState } from '@/constants/app.enum';
+import { MutationState } from '@/constants/app.vuex';
 import OkrsRepository from '@/repositories/OkrsRepository';
 @Component<TopSearchCycle>({
   name: 'TopSearchCycle',
@@ -32,15 +32,17 @@ import OkrsRepository from '@/repositories/OkrsRepository';
   },
 })
 export default class TopSearchCycle extends Vue {
-  private cycleId: number = this.$store.state.cycle.cycle.id;
+  private topSearch: any = {
+    cycleId: this.$store.state.cycle.cycleTemp,
+    textSearch: '' as string,
+  };
+
   private allCompanyOkrs: any[] = [];
-  private textSearch: string = '';
   private listCycles: any[] = [];
 
-  @Watch('cycleId')
+  @Watch('topSearch.cycleId', { immediate: false })
   private changeCycleData(cycleId: number) {
-    console.log(cycleId);
-    this.$store.commit(MutationState.SET_CURRENT_CYCLE, { id: cycleId });
+    this.$store.commit(MutationState.SET_TEMP_CYCLE, cycleId);
     this.$emit('changeCycleData');
   }
 
@@ -59,12 +61,13 @@ export default class TopSearchCycle extends Vue {
 
   private handleSearchSelect(item) {
     window.open(`${process.env.baseURL}/OKRs/chi-tiet/${item.id}`, '_blank');
-    this.textSearch = '';
+    this.topSearch.textSearch = '';
   }
 
   private async getAllCompanyOkrs() {
+    const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
     try {
-      const [rootOkrs, okrs] = await Promise.all([OkrsRepository.getListOkrs(this.cycleId, 1), OkrsRepository.getListOkrs(this.cycleId, 3)]);
+      const [rootOkrs, okrs] = await Promise.all([OkrsRepository.getListOkrs(cycleId, 1), OkrsRepository.getListOkrs(cycleId, 3)]);
       const result = [...Object.freeze(rootOkrs.data.data), ...Object.freeze(okrs.data.data)];
       if (result.length) {
         this.allCompanyOkrs = result.map((item) => {

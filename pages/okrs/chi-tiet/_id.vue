@@ -52,7 +52,7 @@ import { Component, Vue, PropSync, Prop, Watch } from 'vue-property-decorator';
 
 import OkrsRepository from '@/repositories/OkrsRepository';
 import { confirmWarningConfig, notificationConfig } from '@/constants/app.constant';
-import { MutationState } from '@/constants/app.enum';
+import { MutationState, DispatchAction } from '@/constants/app.enum';
 @Component<OkrsDetailPage>({
   name: 'OkrsDetailPage',
   head() {
@@ -71,7 +71,13 @@ import { MutationState } from '@/constants/app.enum';
   created() {
     this.tempOkrs = this.objective;
   },
-  middleware: ['measureUnit'],
+  mounted() {
+    this.$store.dispatch(DispatchAction.SET_MEASURE_UNITS);
+  },
+  beforeRouteLeave(_, __, next) {
+    this.$store.dispatch(DispatchAction.CLEAR_MEASURE_UNITS);
+    next();
+  },
 })
 export default class OkrsDetailPage extends Vue {
   private visibleDialog: boolean = false;

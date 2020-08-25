@@ -32,7 +32,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, PropSync, Watch } from 'vue-property-decorator';
 import CycleRepository from '@/repositories/CycleRepository';
-import { MutationState } from '@/constants/app.enum';
+import { MutationState } from '@/constants/app.vuex';
 import UserRepository from '@/repositories/UserRepository';
 @Component<NavbarCrfs>({
   name: 'NavbarCrfs',

@@ -120,7 +120,7 @@ import InfiniteLoading, { StateChanger } from 'vue-infinite-loading';
 import { itemCfrsDefault } from './history.const';
 import IconStarDashboard from '@/assets/images/dashboard/star-dashboard.svg';
 import CfrsRepository from '@/repositories/CfrsRepository';
-import { MutationState } from '@/constants/app.enum';
+import { MutationState } from '@/constants/app.vuex';
 import { HistoryCfrsParams } from '@/constants/app.interface';
 
 @Component<History>({
