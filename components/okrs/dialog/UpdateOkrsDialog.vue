@@ -43,19 +43,12 @@ import { notificationConfig, confirmWarningConfig } from '@/constants/app.consta
 import KrsForm from '@/components/okrs/KrsForm.vue';
 import { PayloadOkrs } from '@/constants/app.interface';
 import { max255Char } from '@/components/account/account.constant';
-import { DispatchAction } from '@/constants/app.vuex';
 @Component<UpdateOkrsDialog>({
   name: 'UpdateOkrsDialog',
   components: {
     IconAddKrs,
     KrsForm,
   },
-  // beforeCreate() {
-  //   // ⚠️ Chỉ call API khi đang ở page OKRs Dashboar, còn ở OKRs detail thì không gọi
-  //   if (!this.$route.params.id) {
-  //     this.$store.dispatch(DispatchAction.SET_MEASURE_UNITS);
-  //   }
-  // },
   created() {
     this.krFormItems = this.temporaryOkrs.keyResults;
   },

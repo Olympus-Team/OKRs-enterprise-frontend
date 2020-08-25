@@ -20,7 +20,6 @@ import IconSetting from '@/assets/images/okrs/setting.svg';
 import { confirmWarningConfig, notificationConfig } from '@/constants/app.constant';
 import OkrsRepository from '@/repositories/OkrsRepository';
 import { DialogTooltipAction } from '@/constants/app.interface';
-import { DispatchAction } from '@/constants/app.vuex';
 @Component<OkrsActionTooltip>({
   name: 'OkrsActionTooltip',
   components: {
