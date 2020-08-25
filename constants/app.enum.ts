@@ -118,35 +118,3 @@ export enum EvaluationCriteriaEnum {
   EvaluationCriteria = 'evaluation_criteria',
   RECOGNITION = 'RECOGNITION',
 }
-
-/**
- * Vuex
- */
-export enum DispatchAction {
-  LOGIN = 'auth/login',
-  LOGOUT = 'auth/logout',
-  CLEAR = 'auth/clear',
-  STAFF_OKRS = 'okrs/setStaffOkrs',
-  CLEAR_OKRS = 'okrs/clearOkrs',
-}
-
-export enum GetterState {
-  USER = 'auth/user',
-  TEMP_CYCLE = 'cycle/cycleTemp',
-}
-
-export enum MutationState {
-  SET_USER = 'auth/setUser',
-  SET_TOKEN = 'auth/setToken',
-  SET_TEMP_USER = 'user/setTempUser',
-  SET_USERS = 'user/setUsers',
-  SET_CURRENT_CYCLE = 'cycle/setCurrentCycle',
-  SET_OBJECTIVE = 'okrs/setObjective',
-  SET_KR = 'okrs/setKeyResult',
-  CLEAR_KRS = 'okrs/clearKrs',
-  SET_OKRS_DETAIL = 'okrs/setOkrsDetail',
-  CLEAR_STAFF_OKRS = 'okrs/setStaffOkrs',
-  SET_MEASURE_UNITS = 'measureUnit/setMeasureUnits',
-  SET_TEMP_CYCLE = 'cycle/setTempCycle',
-  SET_ALL_CYCLES = 'cycle/setAllCycles',
-}

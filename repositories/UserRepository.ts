@@ -1,6 +1,6 @@
 import { authenticatedService } from './BaseRepository';
 import { ResourcesEnpoint } from '@/constants/app.enum';
-import { ChangePasswordDTO, ProfileDTO } from '@/constants/app.interface';
+import { ChangePasswordDTO } from '@/constants/app.interface';
 import { formatDateToYYYY } from '@/utils/dateParser';
 export default class UserRepository {
   public static me() {
@@ -19,7 +19,7 @@ export default class UserRepository {
     return authenticatedService.put(`${ResourcesEnpoint.Users}/me/change_password`, payload);
   }
 
-  public static update(payload) {
+  public static update(payload: any) {
     const tempProfile = {
       fullName: payload.fullName,
       gender: payload.gender,

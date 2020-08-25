@@ -24,11 +24,11 @@ export default class AuthRepository {
     return unAuthenticatedservice.put(authEnpoint.resetPassword, data);
   }
 
-  public static verifyLinkInvite(token) {
+  public static verifyLinkInvite(token: string) {
     return unAuthenticatedservice.get(`auth/verification/${token}`);
   }
 
-  public static verifyResetPassword(token) {
+  public static verifyResetPassword(token: string) {
     return unAuthenticatedservice.get(`${authEnpoint.resetPassword}/${token}`);
   }
 

@@ -11,7 +11,7 @@ export default class DashboardRepository {
     return authenticatedService.get(`${ResourcesEnpoint.Dashboard}/top_stars?`, { params: { cycleId, type } });
   }
 
-  public static getOKRsProgress(params): Promise<AxiosResponse<any>> {
+  public static getOKRsProgress(params: any): Promise<AxiosResponse<any>> {
     return authenticatedService.get(`${ResourcesEnpoint.Dashboard}/view_progress`, { params });
   }
 
