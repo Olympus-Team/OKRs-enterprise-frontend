@@ -1,6 +1,13 @@
 <template>
   <div v-if="user" class="dashboard">
-    <el-select v-model="idCycle" no-match-text="Không tìm thấy chu kỳ" filterable placeholder="Chọn chu kỳ" @change="handleSelectCycle(idCycle)">
+    <el-select
+      v-if="options.length > 0"
+      v-model="idCycle"
+      no-match-text="Không tìm thấy chu kỳ"
+      filterable
+      placeholder="Chọn chu kỳ"
+      @change="handleSelectCycle(idCycle)"
+    >
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
     <dashboard-progress-bar :loading="loading" :data-okrs-progress="dataOkrsProgress" />

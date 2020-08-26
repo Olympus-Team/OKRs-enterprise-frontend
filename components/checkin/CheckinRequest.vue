@@ -96,7 +96,7 @@ import { Component, Vue, PropSync } from 'vue-property-decorator';
 import { Form } from 'element-ui';
 import CheckinRepository from '@/repositories/CheckinRepository';
 import { statusCheckin, confidentLevel, notificationConfig } from '@/constants/app.constant';
-import { formatDateToYYYY } from '@/utils/dateParser';
+import { formatDateToYYYY, formatDateToDD } from '@/utils/dateParser';
 import { Maps, Rule } from '@/constants/app.type';
 @Component<DetailHistory>({
   name: 'DetailHistory',
@@ -118,6 +118,15 @@ export default class DetailHistory extends Vue {
       return callback(new Error('Phải là số nguyên dương'));
     } else if (value < 0) {
       callback(new Error('Không được nhỏ hơn 0'));
+    } else {
+      callback();
+    }
+  };
+
+  private validateDate = (rule, value, callback) => {
+    console.log(value);
+    if (value < formatDateToDD(new Date())) {
+      return callback(new Error('Không được nhỏ hơn ngày hiện tại'));
     } else {
       callback();
     }
@@ -164,7 +173,7 @@ export default class DetailHistory extends Vue {
       },
       { validator: this.checkText, trigger: ['change', 'blur'] },
     ],
-    nextCheckinDate: [{ required: true, message: 'Vui lòng chọn ngày check-in tiếp theo', trigger: ['blur', 'change'] }],
+    nextCheckinDate: [{ validator: this.validateDate, trigger: ['change', 'blur'] }],
   };
 
   private handleBack() {

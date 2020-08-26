@@ -112,7 +112,7 @@ import { Form } from 'element-ui';
 import { GetterState } from '@/constants/app.vuex';
 import CheckinRepository from '@/repositories/CheckinRepository';
 import { statusCheckin, confidentLevel, notificationConfig } from '@/constants/app.constant';
-import { formatDateToYYYY } from '@/utils/dateParser';
+import { formatDateToYYYY, formatDateToDD } from '@/utils/dateParser';
 import { Maps, Rule } from '@/constants/app.type';
 @Component<DetailHistory>({
   name: 'DetailHistory',
@@ -154,6 +154,15 @@ export default class DetailHistory extends Vue {
     }
   };
 
+  private validateDate = (rule, value, callback) => {
+    console.log(value);
+    if (value < formatDateToDD(new Date())) {
+      return callback(new Error('Không được nhỏ hơn ngày hiện tại'));
+    } else {
+      callback();
+    }
+  };
+
   private pickerOptions: any = {
     disabledDate(time) {
       return time.getTime() <= Date.now();
@@ -183,13 +192,7 @@ export default class DetailHistory extends Vue {
         trigger: ['blur', 'change'],
       },
     ],
-    nextCheckinDate: [
-      {
-        required: false,
-        message: 'Không được bỏ trống',
-        trigger: ['blur', 'change'],
-      },
-    ],
+    nextCheckinDate: [{ validator: this.validateDate, trigger: ['change', 'blur'] }],
   };
 
   private handleDraftCheckin() {
@@ -369,13 +372,7 @@ export default class DetailHistory extends Vue {
           trigger: ['blur', 'change'],
         },
       ],
-      nextCheckinDate: [
-        {
-          required: false,
-          message: 'Không được bỏ trống',
-          trigger: ['blur', 'change'],
-        },
-      ],
+      nextCheckinDate: [{ validator: this.validateDate, trigger: ['change', 'blur'] }],
     };
   }
 
@@ -406,7 +403,10 @@ export default class DetailHistory extends Vue {
         },
         { validator: this.checkText, trigger: ['change', 'blur'] },
       ],
-      nextCheckinDate: [{ required: true, message: 'Vui lòng chọn ngày check-in tiếp theo', trigger: ['blur', 'change'] }],
+      nextCheckinDate: [
+        { required: true, message: 'Vui lòng chọn ngày check-in tiếp theo', trigger: ['blur', 'change'] },
+        { validator: this.validateDate, trigger: ['change', 'blur'] },
+      ],
     };
   }
 

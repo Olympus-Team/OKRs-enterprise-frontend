@@ -260,6 +260,9 @@ export default class ViewProfile extends Vue {
 @import '@/assets/scss/main.scss';
 .wrap-profile {
   padding: $unit-8 $unit-10 $unit-10 $unit-10;
+  @include breakpoint-down(phone) {
+    padding: 0;
+  }
   .profile {
     background: $white;
     box-shadow: $box-shadow-default;

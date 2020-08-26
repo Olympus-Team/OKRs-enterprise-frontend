@@ -1,7 +1,7 @@
 <template>
   <el-row class="top-search-cycle">
     <el-col :xs="8" :sm="8" :md="8" :lg="8">
-      <el-select v-model="topSearch.cycleId" filterable placeholder="Nhập chu kỳ" no-match-text="Không tìm thấy chu kỳ">
+      <el-select v-if="listCycles.length > 0" v-model="topSearch.cycleId" filterable placeholder="Nhập chu kỳ" no-match-text="Không tìm thấy chu kỳ">
         <el-option v-for="cycle in listCycles" :key="cycle.id" :label="cycle.label" :value="cycle.id" />
       </el-select>
     </el-col>

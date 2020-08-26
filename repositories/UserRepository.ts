@@ -23,7 +23,7 @@ export default class UserRepository {
     const tempProfile = {
       fullName: payload.fullName,
       gender: payload.gender,
-      dateOfBirth: formatDateToYYYY(payload.dateOfBirth),
+      dateOfBirth: payload.dateOfBirth ? formatDateToYYYY(payload.dateOfBirth) : null,
     };
     return authenticatedService.put(`${ResourcesEnpoint.Users}/me`, tempProfile);
   }

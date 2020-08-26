@@ -1,6 +1,7 @@
 <template>
   <div v-if="user" class="checkins">
     <el-select
+      v-if="listCycles.length > 0"
       v-model="currentCycleId"
       no-match-text="Không tìm thấy chu kỳ"
       filterable
