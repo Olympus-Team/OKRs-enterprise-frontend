@@ -1,5 +1,5 @@
 <template>
-  <el-row class="login-form" type="flex" justify="center">
+  <el-row class="login-form">
     <div class="login-form__title">
       <span>Đăng nhập tài khoản</span>
     </div>
@@ -52,6 +52,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Form as LoginForm, Message } from 'element-ui';
+import { max255Char } from './account.constant';
 import { LoginDTO } from '@/constants/app.interface';
 import { authEnpoint } from '@/constants/app.constant';
 import { Maps, Rule } from '@/constants/app.type';
@@ -71,8 +72,9 @@ export default class LoginSComponent extends Vue {
     email: [
       { required: true, message: 'Vui lòng nhập địa chỉ email', trigger: 'blur' },
       { type: 'email', message: 'Vui lòng nhập đúng địa chỉ email', trigger: 'blur' },
+      max255Char,
     ],
-    password: [{ required: true, message: 'Vui lòng nhập mật khẩu' }],
+    password: [{ required: true, message: 'Vui lòng nhập mật khẩu' }, max255Char],
   };
 
   private handleLogin(): any {
@@ -97,10 +99,7 @@ export default class LoginSComponent extends Vue {
 <style lang="scss">
 @import '@/assets/scss/main.scss';
 .login-form {
-  flex-direction: column;
-  padding: $unit-12;
-  box-shadow: $box-shadow-default;
-  background-color: $white;
+  @include account-form;
   &__title {
     text-align: center;
     border: 10px;

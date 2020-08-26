@@ -1,6 +1,6 @@
 <template>
-  <el-row class="reset-password-form" type="flex" justify="space-between">
-    <div class="reset-password-form__title">
+  <el-row class="rpassword" type="flex" justify="space-between">
+    <div class="rpassword__title">
       <span>Đặt lại mật khẩu</span>
     </div>
     <el-form
@@ -13,12 +13,12 @@
       label-position="top"
       @submit.native.prevent="handleResetPasswordForm"
     >
-      <div class="reset-password-form__input">
+      <div class="rpassword__input">
         <el-form-item prop="password" class="custom-label" label="Mật khẩu mới">
           <el-input
             v-model="resetPasswordForm.password"
             type="password"
-            class="reset-password-form__input__new-password"
+            class="rpassword__input__new-password"
             placeholder="Nhập mật khẩu"
           ></el-input>
         </el-form-item>
@@ -26,12 +26,12 @@
           <el-input
             v-model="resetPasswordForm.matchPassword"
             type="password"
-            class="reset-password-form__input__match-password"
+            class="rpassword__input__match-password"
             placeholder="Nhập mật khẩu"
           ></el-input>
         </el-form-item>
       </div>
-      <el-row class="reset-password-form__action" type="flex" justify="space-between">
+      <el-row class="rpassword__action" type="flex" justify="space-between">
         <el-col :span="24">
           <el-button :loading="loading" class="el-button el-button--purple el-button--medium" @click="handleResetPasswordForm"
             >Đổi mật khẩu</el-button
@@ -40,7 +40,7 @@
         <el-col :span="24">
           <nuxt-link to="/dang-nhap">
             <strong>Quay lại trang</strong>
-            <span class="reset-password-form__action--login">Đăng nhập</span>
+            <span class="rpassword__action--login">Đăng nhập</span>
           </nuxt-link>
         </el-col>
       </el-row>
@@ -52,6 +52,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Form } from 'element-ui';
 
+import { max255Char } from './account.constant';
 import { notificationConfig } from '@/constants/app.constant';
 import { ResetPasswordDTO, ResetPasswordActionDTO } from '@/constants/app.interface';
 import AuthRepository from '@/repositories/AuthRepository';
@@ -73,6 +74,7 @@ export default class ResetPassword extends Vue {
     password: [
       { required: true, message: 'Vui lòng nhập mật khẩu mới', trigger: 'blur' },
       { validator: this.validatePassword, trigger: ['blur', 'change'] },
+      max255Char,
     ],
     matchPassword: [
       { required: true, message: 'Vui lòng nhập lại mật khẩu' },
@@ -127,13 +129,8 @@ export default class ResetPassword extends Vue {
 
 <style lang="scss">
 @import '@/assets/scss/main.scss';
-.reset-password-form {
-  flex-direction: column;
-  padding: $unit-12;
-  box-shadow: $box-shadow-default;
-  background-color: $white;
-  @include breakpoint-down(phone) {
-  }
+.rpassword {
+  @include account-form;
   &__title {
     text-align: center;
     border: 10px;

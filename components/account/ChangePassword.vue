@@ -1,5 +1,5 @@
 <template>
-  <el-row class="change-password" type="flex" justify="center">
+  <el-row class="change-password">
     <div class="change-password__title">
       <span>Đổi mật khẩu</span>
     </div>
@@ -59,6 +59,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Form } from 'element-ui';
+import { max255Char } from './account.constant';
 import { notificationConfig } from '@/constants/app.constant';
 import { Maps, Rule } from '@/constants/app.type';
 import { ChangePasswordDTO } from '@/constants/app.interface';
@@ -77,10 +78,11 @@ export default class ChangePasswordDialog extends Vue {
   };
 
   private rules: Maps<Rule[]> = {
-    password: [{ required: true, message: 'Vui lòng nhập mật khẩu cũ', trigger: 'blur' }],
+    password: [{ required: true, message: 'Vui lòng nhập mật khẩu cũ', trigger: 'blur' }, max255Char],
     newPassword: [
       { required: true, message: 'Vui lòng nhập mật khẩu mới', trigger: 'blur' },
       { validator: this.validatePassword, trigger: ['blur', 'change'] },
+      max255Char,
     ],
     matchPassword: [
       { required: true, message: 'Vui lòng nhập lại mật khẩu' },
@@ -143,10 +145,7 @@ export default class ChangePasswordDialog extends Vue {
 <style lang="scss">
 @import '@/assets/scss/main.scss';
 .change-password {
-  flex-direction: column;
-  padding: $unit-12;
-  box-shadow: $box-shadow-default;
-  background-color: $white;
+  @include account-form;
   &__title {
     text-align: center;
     border: 10px;

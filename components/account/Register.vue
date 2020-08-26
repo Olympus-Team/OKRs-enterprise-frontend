@@ -1,7 +1,7 @@
 <template>
-  <el-row class="register-form" type="flex" justify="center">
+  <el-row class="register-form">
     <div class="register-form__title">
-      <span>Yêu cầu tham gia Capi Creative Design</span>
+      <span>Đăng ký tài khoản</span>
     </div>
     <el-form
       ref="registerForm"
@@ -14,16 +14,28 @@
       @submit.native.prevent="handleRegisterForm"
     >
       <el-form-item prop="email" label="Email" class="custom-label">
-        <el-input v-model="registerForm.email" class="register-form__input__email" placeholder="Nhập email"></el-input>
+        <el-input v-model="registerForm.email" size="medium" class="register-form__input__email" placeholder="Nhập email"></el-input>
       </el-form-item>
       <el-form-item prop="password" label="Mật khẩu" class="custom-label">
-        <el-input v-model="registerForm.password" type="password" class="register-form__input__password" placeholder="Nhập mật khẩu"></el-input>
+        <el-input
+          v-model="registerForm.password"
+          size="medium"
+          type="password"
+          class="register-form__input__password"
+          placeholder="Nhập mật khẩu"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="matchPassword" label="Nhập lại mật khẩu" class="custom-label">
-        <el-input v-model="registerForm.matchPassword" type="password" class="register-form__input" placeholder="Nhập lại mật khẩu"></el-input>
+        <el-input
+          v-model="registerForm.matchPassword"
+          size="medium"
+          type="password"
+          class="register-form__input"
+          placeholder="Nhập lại mật khẩu"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="fullName" label="Họ và Tên" class="custom-label">
-        <el-input v-model="registerForm.fullName" class="register-form__input__full-name" placeholder="Nhập họ tên"></el-input>
+        <el-input v-model="registerForm.fullName" size="medium" class="register-form__input__full-name" placeholder="Nhập họ tên"></el-input>
       </el-form-item>
       <el-form-item prop="gender" label="Giới tính" class="register-form__input__gender custom-label">
         <el-radio-group v-model="registerForm.gender">
@@ -32,12 +44,12 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item prop="teamId" label="Phòng ban" class="register-form__input__team custom-label">
-        <el-select v-model="registerForm.teamId" placeholder="Chọn phòng ban" :no-data-text="noDataText">
+        <el-select v-model="registerForm.teamId" size="medium" placeholder="Chọn phòng ban" :no-data-text="noDataText">
           <el-option v-for="item in teams" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item prop="jobPositionId" label="Vị trí" class="register-form__input__job-position custom-label">
-        <el-select v-model="registerForm.jobPositionId" placeholder="Chọn vị trí" :no-data-text="noDataText">
+        <el-select v-model="registerForm.jobPositionId" size="medium" placeholder="Chọn vị trí" :no-data-text="noDataText">
           <el-option v-for="item in jobs" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
@@ -156,16 +168,14 @@ export default class RegisterComponent extends Vue {
 <style lang="scss">
 @import '@/assets/scss/main.scss';
 .register-form {
-  flex-direction: column;
-  padding: $unit-8 $unit-12 $unit-12 $unit-12;
-  background-color: $white;
-  box-shadow: $box-shadow-default;
+  @include account-form;
   &__title {
     text-align: center;
     border: 10px;
     padding: 0 0 $unit-5 0;
     font-size: 1.75rem;
     color: $neutral-primary-4;
+    margin-top: -$unit-4;
   }
   &__input {
     &__gender {
@@ -185,7 +195,7 @@ export default class RegisterComponent extends Vue {
     }
   }
   .el-button {
-    margin-top: $unit-10;
+    margin-top: $unit-2;
     font-size: $unit-5;
     width: 100%;
   }
