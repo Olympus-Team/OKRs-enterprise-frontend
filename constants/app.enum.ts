@@ -33,7 +33,6 @@ export enum elComponent {
   ElPopover = 'ElPopover',
   ElPageHeader = 'ElPageHeader',
   ElTag = 'ElTag',
-  ElDrawer = 'ElDrawer',
 }
 
 export enum UserStatus {

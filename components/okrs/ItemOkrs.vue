@@ -61,6 +61,7 @@
                 :editable="editableOkrs(row.user.id)"
                 :okrs-id.sync="row.id"
                 :temp-okrs="row"
+                :is-root-okrs="row.isRootObjective"
                 @updateTempOkrs="updateTempOkrs($event)"
               />
             </div>

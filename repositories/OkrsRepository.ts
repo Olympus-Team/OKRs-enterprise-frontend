@@ -17,8 +17,8 @@ export default class OkrsRepository {
     return authenticatedService.get(`${ResourcesEnpoint.Objective}/detail/${okrsId}`);
   }
 
-  public static getOkrsDashboard(cycleId: number): Promise<AxiosResponse<any>> {
-    return authenticatedService.get(`${ResourcesEnpoint.Objective}/view_list?cycleId=${cycleId}`);
+  public static getOkrsDashboard(cycleId: number, userId: number): Promise<AxiosResponse<any>> {
+    return authenticatedService.get(`${ResourcesEnpoint.Objective}/view_list`, { params: { cycleId, userId } });
   }
 
   public static createOrUpdateOkrs(payload: PayloadOkrs): Promise<AxiosResponse<any>> {

@@ -1,11 +1,11 @@
 <template>
   <div v-loading="loadingTab" class="feedback">
     <el-row :gutter="30" class>
-      <el-col v-if="listWatingFeedback.inferior && $store.state.auth.user.role.name !== 'STAFF'" v-loading="loadingInferior" :md="12" :lg="12">
+      <el-col v-if="listWatingFeedback.inferior && $store.state.auth.user.isLeader" v-loading="loadingInferior" :md="12" :lg="12">
         <div class="feedback__col">
           <p class="feedback__col__header">{{ displayHeader('inferior') }}</p>
-          <p v-if="!listWatingFeedback.inferior.checkins.items.length" class="cfr">Không có dữ liệu để phản hồi</p>
-          <div v-for="item in listWatingFeedback.inferior.checkins.items" :key="item.id" class="cfr">
+          <p v-if="!listWatingFeedback.inferior.checkins.items.length" class="none-cfr">Không có dữ liệu để phản hồi</p>
+          <div v-for="item in listWatingFeedback.inferior.checkins.items" v-else :key="item.id" class="cfr">
             <div class="cfr__left" @click="viewDetailCheckin(item, listWatingFeedback.inferior.type)">
               <el-avatar :size="30">
                 <img :src="item.objective.user.avatarURL ? item.objective.user.avatarURL : item.objective.user.gravatarURL" alt="avatar" />
@@ -38,8 +38,8 @@
       <el-col v-if="listWatingFeedback.superior" :md="12" :lg="12">
         <div class="feedback__col">
           <p class="feedback__col__header">{{ displayHeader('superior') }}</p>
-          <p v-if="!listWatingFeedback.superior.checkins.length" class="cfr">Không có dữ liệu để phản hồi</p>
-          <div v-for="item in listWatingFeedback.superior.items" v-else :key="item.id" class="cfr">
+          <p v-if="!listWatingFeedback.superior.checkins.length" class="none-cfr">Không có dữ liệu để phản hồi</p>
+          <div v-for="item in listWatingFeedback.superior.checkins" v-else :key="item.id" class="cfr">
             <div class="cfr__left" @click="viewDetailCheckin(item, listWatingFeedback.superior.type)">
               <el-avatar :size="30">
                 <img
@@ -137,7 +137,7 @@ export default class Feedback extends Vue {
   private visibleCreateDialog: boolean = false;
   private visibleDetailDialog: boolean = false;
 
-  @Watch('$route.query.page')
+  @Watch('$route.query.page', { immediate: false })
   private async changeListWaitingFeedbacks(page: string) {
     this.loadingInferior = true;
     try {
@@ -254,6 +254,11 @@ export default class Feedback extends Vue {
       place-content: center;
     }
   }
+}
+.none-cfr {
+  text-align: center;
+  padding: $unit-3 $unit-4 $unit-3 $unit-4;
+  @include box-shadow;
 }
 .cfr {
   display: flex;

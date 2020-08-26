@@ -5,15 +5,27 @@
         <el-option v-for="cycle in listCycles" :key="cycle.id" :label="cycle.label" :value="cycle.id" />
       </el-select>
     </el-col>
-    <el-col :xs="12" :sm="12" :md="12" :lg="12">
+    <el-col class="top-search-cycle__suggestion" :xs="12" :sm="12" :md="12" :lg="12">
       <el-autocomplete
         v-model="topSearch.textSearch"
         prefix-icon="el-icon-search"
         :fetch-suggestions="querySearch"
-        :trigger-on-focus="false"
+        :trigger-on-focus="true"
         placeholder="Tìm kiếm OKRs"
         @select="handleSearchSelect"
-      ></el-autocomplete>
+      >
+        <template v-slot="{ item }">
+          <div class="user-suggestion">
+            <el-avatar :size="30">
+              <img :src="item.avatarURL ? item.avatarURL : item.gravatarURL" alt="avatar" />
+            </el-avatar>
+            <div class="user-suggestion--info">
+              <p class="user-suggestion--info--fullName">{{ item.fullName }}</p>
+              <p class="user-suggestion--info--department">{{ getInforUser(item) }}</p>
+            </div>
+          </div>
+        </template>
+      </el-autocomplete>
     </el-col>
   </el-row>
 </template>
@@ -22,13 +34,14 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import CycleRepository from '@/repositories/CycleRepository';
 import { MutationState } from '@/constants/app.vuex';
 import OkrsRepository from '@/repositories/OkrsRepository';
+import UserRepository from '@/repositories/UserRepository';
 @Component<TopSearchCycle>({
   name: 'TopSearchCycle',
   async created() {
     await this.getListCycle();
   },
   mounted() {
-    this.getAllCompanyOkrs();
+    this.getAllUsers();
   },
 })
 export default class TopSearchCycle extends Vue {
@@ -37,46 +50,49 @@ export default class TopSearchCycle extends Vue {
     textSearch: '' as string,
   };
 
-  private allCompanyOkrs: any[] = [];
+  private allUsers: any[] = [];
   private listCycles: any[] = [];
 
   @Watch('topSearch.cycleId', { immediate: false })
   private changeCycleData(cycleId: number) {
     this.$store.commit(MutationState.SET_TEMP_CYCLE, cycleId);
-    this.$emit('changeCycleData');
+    const userId = this.$store.state.user.tempUser ? this.$store.state.user.tempUser.id : this.$store.state.auth.user.id;
+    this.$emit('changeCycleData', userId);
   }
 
   private querySearch(textQuery: string, callback: any) {
     let results: any[] = [];
     if (textQuery) {
-      results = this.allCompanyOkrs.filter((item) => {
-        return item.value.toLowerCase().includes(textQuery.toLowerCase());
+      results = this.allUsers.filter((item) => {
+        return item.fullName.toLowerCase().includes(textQuery.toLowerCase());
       });
     } else {
-      results = this.allCompanyOkrs;
+      results = this.allUsers;
     }
     // call callback function to return suggestions
     callback(results);
   }
 
   private handleSearchSelect(item) {
-    window.open(`${process.env.baseURL}/OKRs/chi-tiet/${item.id}`, '_blank');
-    this.topSearch.textSearch = '';
+    this.topSearch.textSearch = item.fullName;
+    this.$store.commit(MutationState.SET_TEMP_USER, item);
   }
 
-  private async getAllCompanyOkrs() {
-    const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
+  private getInforUser(item: any): String {
+    if (item.isLeader) {
+      return `Trưởng ${item.team.name}`;
+    } else {
+      return `Thành viên ${item.team.name}`;
+    }
+  }
+
+  private async getAllUsers() {
     try {
-      const [rootOkrs, okrs] = await Promise.all([OkrsRepository.getListOkrs(cycleId, 1), OkrsRepository.getListOkrs(cycleId, 3)]);
-      const result = [...Object.freeze(rootOkrs.data.data), ...Object.freeze(okrs.data.data)];
-      if (result.length) {
-        this.allCompanyOkrs = result.map((item) => {
-          return {
-            id: item.id,
-            value: `[${item.user.email}] ${item.title}`,
-          };
-        });
-      }
+      await UserRepository.getAllUsers().then((res) => {
+        if (res.data.data.length) {
+          this.allUsers = Object.freeze(res.data.data);
+        }
+      });
     } catch (error) {}
   }
 
@@ -106,8 +122,24 @@ export default class TopSearchCycle extends Vue {
     display: flex;
     justify-content: space-between;
   }
+  &__suggestion {
+    margin-left: $unit-4;
+  }
   .el-autocomplete {
     width: 100%;
+  }
+}
+.user-suggestion {
+  display: flex;
+  place-content: center flex-start;
+  padding: $unit-2 0 $unit-2 0;
+  span {
+    align-self: center;
+  }
+  &--info {
+    align-self: center;
+    line-height: $unit-5;
+    padding-left: $unit-2;
   }
 }
 </style>

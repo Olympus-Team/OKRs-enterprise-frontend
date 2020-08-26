@@ -139,13 +139,5 @@ export default class NavbarCrfs extends Vue {
   .el-autocomplete {
     width: 100%;
   }
-  // .el-autocomplete-suggestion__list {
-  //   li {
-  //     padding-bottom: $unit-2;
-  //     &:last-child {
-  //       padding-bottom: 0;
-  //     }
-  //   }
-  // }
 }
 </style>

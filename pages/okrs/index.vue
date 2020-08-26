@@ -2,7 +2,7 @@
   <div v-loading="loadingComponent" class="okrs-page">
     <el-row class="okrs-page__top" type="flex" justify="space-between">
       <el-col :xs="24" :sm="24" :md="12" :lg="12" class="okrs-page__top--searching">
-        <base-top-search-cycle @changeCycleData="getDashBoardOkrs" />
+        <base-top-search-cycle @changeCycleData="changeCycleData($event)" />
       </el-col>
       <el-col :xs="24" :sm="24" :md="8" :lg="8" class="okrs-page__top--button">
         <el-button v-if="isNotAdminButton()" class="el-button el-button--purple el-button-medium" icon="el-icon-plus" @click="addPersonalOkrs"
@@ -40,17 +40,20 @@
         :reload-data="getDashBoardOkrs"
       />
     </transition>
-    <okrs-drawer v-if="visibleDrawer" :list-krs="listKrs" :visible-drawer.sync="visibleDrawer" />
+    <transition name="el-zoom-in-center">
+      <okrs-dialog-detail-krs v-if="visibleDetailKrs" :list-krs="listKrs" :visible-detail-krs.sync="visibleDetailKrs" />
+    </transition>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { MutationState, DispatchAction } from '@/constants/app.vuex';
 import OkrsRepository from '@/repositories/OkrsRepository';
 @Component<OKRsPage>({
   name: 'OKRsPage',
   async created() {
-    await this.getDashBoardOkrs();
+    const userId = this.$store.state.user.tempUser ? this.$store.state.user.tempUser.id : this.$store.state.auth.user.id;
+    await this.getDashBoardOkrs(userId);
   },
   mounted() {
     this.loadingComponent = true;
@@ -64,6 +67,7 @@ import OkrsRepository from '@/repositories/OkrsRepository';
   },
   beforeDestroy() {
     this.$store.commit(MutationState.SET_TEMP_CYCLE, this.$store.state.cycle.cycle.id);
+    this.$store.commit(MutationState.SET_TEMP_USER, null);
     this.$store.dispatch(DispatchAction.CLEAR_STAFF_OKRS);
   },
 })
@@ -74,11 +78,11 @@ export default class OKRsPage extends Vue {
   private visibleCreateOkrsDialog = false;
   private visible: boolean = false;
   private listKrs: any[] = [];
-  private visibleDrawer: boolean = false;
+  private visibleDetailKrs: boolean = false;
 
   private openDrawer(keyResults: any) {
     this.listKrs = keyResults;
-    this.visibleDrawer = true;
+    this.visibleDetailKrs = true;
   }
 
   private handleCommand(command: string) {
@@ -102,13 +106,24 @@ export default class OKRsPage extends Vue {
     { textHeader: 'OKRs cá nhân', tableData: null },
   ];
 
-  private async getDashBoardOkrs() {
+  @Watch('$store.state.user.tempUser.id', { immediate: false })
+  private async getDashboarUser(userId: number) {
+    await this.getDashBoardOkrs(userId);
+  }
+
+  private async getDashBoardOkrs(userId: number) {
     this.loadingForm = true;
     try {
       const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
-      const { data } = await OkrsRepository.getOkrsDashboard(cycleId);
+      const { data } = await OkrsRepository.getOkrsDashboard(cycleId, userId);
       this.itemOKRsData[0].tableData = Object.freeze(data.data.root);
-      if (this.$store.state.auth.user.role.name !== 'ADMIN') {
+      if (this.$store.state.user.tempUser) {
+        if (this.$store.state.user.tempUser.role.name === 'ADMIN') {
+          this.itemOKRsData[1].tableData = null;
+        } else {
+          this.itemOKRsData[1].tableData = Object.freeze(data.data.team);
+        }
+      } else if (this.$store.state.auth.user.role.name !== 'ADMIN') {
         this.itemOKRsData[1].tableData = Object.freeze(data.data.team);
       }
       this.itemOKRsData[2].tableData = Object.freeze(data.data.personal);
@@ -120,6 +135,10 @@ export default class OKRsPage extends Vue {
         this.loadingForm = false;
       }, 500);
     }
+  }
+
+  private async changeCycleData(userId: number) {
+    await this.getDashBoardOkrs(userId);
   }
 
   private isNotAdminButton(): boolean {

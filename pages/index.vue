@@ -6,7 +6,7 @@
       no-match-text="Không tìm thấy chu kỳ"
       filterable
       placeholder="Chọn chu kỳ"
-      @change="handleSelectCycle(idCycle)"
+      @change="handleSelectCycle(cycleId)"
     >
       <el-option v-for="cycle in listCycles" :key="cycle.value" :label="cycle.label" :value="cycle.value" />
     </el-select>
@@ -145,9 +145,9 @@ export default class HomePage extends Vue {
     }
   }
 
-  private handleSelectCycle(idCycle) {
-    this.params.cycleId = idCycle;
-    this.$router.push(`?cycleId=${idCycle}`);
+  private handleSelectCycle(cycleId: number) {
+    this.params.cycleId = cycleId;
+    this.$router.push(`?cycleId=${cycleId}`);
   }
 }
 </script>
@@ -164,6 +164,7 @@ export default class HomePage extends Vue {
       flex-direction: column;
     }
     .col {
+      height: 70vh;
       flex: 1;
       padding-bottom: $unit-10;
       background-color: $white;

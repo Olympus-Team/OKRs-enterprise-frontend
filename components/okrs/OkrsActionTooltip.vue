@@ -5,7 +5,7 @@
         <p @click="viewDetailOkrs">Xem chi tiết</p>
         <div v-if="editable">
           <p @click="openUpdateDialog(1)">Cập nhật</p>
-          <p @click="openUpdateDialog(2)">Liên kết</p>
+          <p v-if="!isRootOkrs" @click="openUpdateDialog(2)">Liên kết</p>
           <p style="color: #e53e3e;" @click="handleDeleteOKrs">Xóa</p>
         </div>
       </div>
@@ -31,6 +31,7 @@ export default class OkrsActionTooltip extends Vue {
   @Prop(Object) private tempOkrs!: object;
   @Prop(Function) private reloadData!: Function;
   @Prop(Boolean) private editable!: boolean;
+  @Prop({ required: false, type: Boolean }) private isRootOkrs!: boolean;
 
   private viewDetailOkrs() {
     this.$router.push(`/OKRs/chi-tiet/${this.syncOkrsId}`);
