@@ -1,14 +1,14 @@
 <template>
   <div v-if="user" class="dashboard">
     <el-select
-      v-if="options.length > 0"
-      v-model="idCycle"
+      v-if="listCycles.length > 0"
+      v-model="cycleId"
       no-match-text="Không tìm thấy chu kỳ"
       filterable
       placeholder="Chọn chu kỳ"
       @change="handleSelectCycle(idCycle)"
     >
-      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+      <el-option v-for="cycle in listCycles" :key="cycle.value" :label="cycle.label" :value="cycle.value" />
     </el-select>
     <dashboard-progress-bar :loading="loading" :data-okrs-progress="dataOkrsProgress" />
     <el-row v-if="user.role.name === 'ADMIN'" class="col-container">
@@ -31,7 +31,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import CycleRepository from '@/repositories/CycleRepository';
 import DashboardRepository from '@/repositories/DashboardRepository';
-import { GetterState } from '@/constants/app.vuex';
+import { GetterState, MutationState } from '@/constants/app.vuex';
 @Component<HomePage>({
   name: 'HomePage',
   head() {
@@ -60,10 +60,10 @@ import { GetterState } from '@/constants/app.vuex';
   },
 })
 export default class HomePage extends Vue {
-  private idCycle: number = this.$route.query.cycleId ? Number(this.$route.query.cycleId) : this.$store.state.cycle.cycle.id;
+  private cycleId: number = this.$route.query.cycleId ? Number(this.$route.query.cycleId) : this.$store.state.cycle.cycle.id;
   private loading: boolean = false;
   private loadingAdmin: boolean = false;
-  private options: Array<any> = [];
+  private listCycles: any[] = [];
 
   private dataStarInCome: Array<object> = [];
   private dataStarOutCome: Array<object> = [];
@@ -78,26 +78,31 @@ export default class HomePage extends Vue {
 
   private async getDataAdmin() {
     this.loadingAdmin = true;
-    await Promise.all([DashboardRepository.getOKRsStatus(), DashboardRepository.getCheckinStatus(), DashboardRepository.getCfrStatus()])
-      .then((result) => {
-        this.dataProgress = result[0].data.data;
-        this.dataCheckin = result[1].data.data;
-        this.dataCfr = result[2].data.data;
-        setTimeout(() => {
-          this.loadingAdmin = false;
-        }, 1000);
-      })
-      .catch((err) => {
-        this.loadingAdmin = false;
-        console.log(err);
-      });
+    try {
+      await Promise.all([DashboardRepository.getOKRsStatus(), DashboardRepository.getCheckinStatus(), DashboardRepository.getCfrStatus()]).then(
+        ([progress, checkin, cfrs]) => {
+          this.dataProgress = progress.data.data;
+          this.dataCheckin = checkin.data.data;
+          this.dataCfr = cfrs.data.data;
+          setTimeout(() => {
+            this.loadingAdmin = false;
+          }, 1000);
+        },
+      );
+    } catch (error) {
+      this.loadingAdmin = false;
+    }
   }
 
   private async getAllCycles() {
     // Get 2 years(8 cycles OKRs) ago until now
-    await CycleRepository.get({ page: 1, limit: 8 })
-      .then((result) => {
-        this.options = result.data.data.items.map((item) => {
+    if (this.$store.state.cycle.cycles.length) {
+      this.listCycles = this.$store.state.cycle.cycles;
+      const cycleId = this.listCycles.find((item) => item.label === this.cycleId);
+    } else {
+      try {
+        const { data } = await CycleRepository.get({ page: 1, limit: 8 });
+        this.listCycles = data.data.items.map((item) => {
           return {
             id: item.id,
             label: item.name,
@@ -106,22 +111,21 @@ export default class HomePage extends Vue {
             endDate: item.endDate,
           };
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        this.$store.commit(MutationState.SET_ALL_CYCLES, this.listCycles);
+      } catch (error) {}
+    }
   }
 
   @Watch('$route.query')
   private async getData() {
     this.loading = true;
-    await Promise.all([
-      DashboardRepository.getTopIncome(this.params.cycleId, 1),
-      DashboardRepository.getTopIncome(this.params.cycleId, 2),
-      DashboardRepository.getOKRsProgress(this.params),
-    ])
-      .then((result) => {
-        const tempCycle = this.options.find((item) => item.id === Number(this.params.cycleId));
+    try {
+      await Promise.all([
+        DashboardRepository.getTopIncome(this.params.cycleId, 1),
+        DashboardRepository.getTopIncome(this.params.cycleId, 2),
+        DashboardRepository.getOKRsProgress(this.params),
+      ]).then(([income, outcome, progress]) => {
+        const tempCycle = this.listCycles.find((item) => item.id === Number(this.params.cycleId));
         this.dataOkrsProgress = Object.assign(
           {},
           {
@@ -129,17 +133,16 @@ export default class HomePage extends Vue {
             endDate: tempCycle.endDate,
           },
         );
-        this.dataStarInCome = result[0].data.data;
-        this.dataStarOutCome = result[1].data.data;
-        this.dataOkrsProgress = Object.assign(this.dataOkrsProgress, result[2].data.data);
+        this.dataStarInCome = income.data.data;
+        this.dataStarOutCome = outcome.data.data;
+        this.dataOkrsProgress = Object.assign(this.dataOkrsProgress, progress.data.data);
         setTimeout(() => {
           this.loading = false;
         }, 1000);
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.log(err);
       });
+    } catch (error) {
+      this.loading = false;
+    }
   }
 
   private handleSelectCycle(idCycle) {
@@ -161,7 +164,6 @@ export default class HomePage extends Vue {
       flex-direction: column;
     }
     .col {
-      min-height: 70vh;
       flex: 1;
       padding-bottom: $unit-10;
       background-color: $white;

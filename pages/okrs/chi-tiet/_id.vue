@@ -35,7 +35,7 @@
           <span class="target">Mục tiêu</span>
           <span class="start">Giá trị ban đầu</span>
           <span class="obtained">Giá trị đạt được</span>
-          <span class="progress">Tiến độ</span>
+          <span class="progress-title">Tiến độ</span>
           <span class="plan">Link kế hoạch</span>
           <span class="result">Link kết quả</span>
         </div>
@@ -213,7 +213,7 @@ export default class OkrsDetailPage extends Vue {
         grid-template-rows: auto;
         padding-bottom: $unit-4;
         grid-template-columns: 4fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-areas: 'content target start obtained progress plan result';
+        grid-template-areas: 'content target start obtained progress-title plan result';
         .content {
           grid-area: content;
         }
@@ -226,8 +226,8 @@ export default class OkrsDetailPage extends Vue {
         .obtained {
           grid-area: obtained;
         }
-        .progress {
-          grid-area: progress;
+        .progress-title {
+          grid-area: progress-title;
         }
         .plan {
           grid-area: plan;
@@ -239,7 +239,7 @@ export default class OkrsDetailPage extends Vue {
         .target,
         .start,
         .obtained,
-        .progress,
+        .progress-title,
         .plan,
         .result {
           border-bottom: 1px solid $neutral-primary-0;

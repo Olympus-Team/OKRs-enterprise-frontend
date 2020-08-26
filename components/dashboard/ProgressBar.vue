@@ -51,24 +51,18 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { customColors } from '../okrs/okrs.constant';
+
 @Component<ProgressBarComponent>({
   name: 'ProgressBarComponent',
 })
 export default class ProgressBarComponent extends Vue {
   @Prop(Object) readonly dataOkrsProgress;
   @Prop(Boolean) readonly loading!: boolean;
-  private customColors(percentage: number) {
-    if (percentage < 30) {
-      return '#e3d0ff';
-    } else if (percentage < 70) {
-      return '#9c6ade';
-    } else {
-      return '#50248f';
-    }
-  }
+  private customColors = customColors;
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/main.scss';
 .progress {
   margin: $unit-8 0;
@@ -78,15 +72,6 @@ export default class ProgressBarComponent extends Vue {
   box-shadow: $box-shadow-default;
   &__item {
     padding: $unit-3 $unit-1;
-    .el-progress-bar {
-      &__outer {
-        background-color: $purple-primary-1;
-        border-radius: $border-radius-medium;
-        .el-progress-bar__inner {
-          border-radius: $border-radius-medium;
-        }
-      }
-    }
   }
   &__header {
     font-weight: $font-weight-bold;
@@ -95,6 +80,17 @@ export default class ProgressBarComponent extends Vue {
     text-align: right;
     @include breakpoint-down(phone) {
       text-align: left;
+    }
+  }
+  .el-progress {
+    .el-progress-bar {
+      &__outer {
+        background-color: $purple-primary-2;
+        border-radius: $border-radius-medium;
+        .el-progress-bar__inner {
+          border-radius: $border-radius-medium;
+        }
+      }
     }
   }
 }
