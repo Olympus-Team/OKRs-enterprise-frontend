@@ -3,6 +3,7 @@ import Vue from 'vue';
 import { elComponent } from '@/constants/app.enum';
 
 /**
+ * @docs https://github.com/nuxt/components/issues/58
  * Import all the conditions to run test with jest
  */
 export default ['@/components/account/Login.vue'].forEach((path) => {
@@ -40,6 +41,11 @@ export default ['@/components/account/Login.vue'].forEach((path) => {
   Vue.component(elComponent.ElAvatar, () => import(/* webpackChunkName: 'element-ui-avatar' */ 'element-ui/lib/avatar'));
   Vue.component(elComponent.ElUpload, () => import(/* webpackChunkName: 'element-ui-upload' */ 'element-ui/lib/upload'));
   Vue.component(elComponent.ElTooltip, () => import(/* webpackChunkName: 'element-ui-tooltip' */ 'element-ui/lib/tooltip'));
+  Vue.component(elComponent.ElProgress, () => import(/* webpackChunkName: 'element-ui-progress' */ 'element-ui/lib/progress'));
+  Vue.component(elComponent.ElPopover, () => import(/* webpackChunkName: 'element-ui-popover' */ 'element-ui/lib/popover'));
+  Vue.component(elComponent.ElPageHeader, () => import(/* webpackChunkName: 'element-ui-page-header' */ 'element-ui/lib/page-header'));
+  Vue.component(elComponent.ElTag, () => import(/* webpackChunkName: 'element-ui-tag' */ 'element-ui/lib/tag'));
+  Vue.component(elComponent.ElDrawer, () => import(/* webpackChunkName: 'element-ui-drawer' */ 'element-ui/lib/drawer'));
 
   if (path.startsWith('@/components/account')) {
     prefix = 'Account';
@@ -47,6 +53,12 @@ export default ['@/components/account/Login.vue'].forEach((path) => {
     prefix = 'Profile';
   } else if (path.startsWith('@/components/common')) {
     prefix = 'Base';
+  } else if (path.startsWith('@/components/okrs/steps')) {
+    prefix = 'Step';
+  } else if (path.startsWith('@/components/cfrs')) {
+    prefix = 'Cfrs';
+  } else if (path.startsWith('@/components/dashboard')) {
+    prefix = 'Dashboard';
   } else {
     prefix = '';
   }

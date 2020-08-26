@@ -33,12 +33,15 @@
       </div>
       <el-row class="reset-password-form__action" type="flex" justify="space-between">
         <el-col :span="24">
-          <el-button :loading="loading" class="el-button el-button--purple el-button--medium" @click="handleResetPasswordForm">
-            Đổi mật khẩu
-          </el-button>
+          <el-button :loading="loading" class="el-button el-button--purple el-button--medium" @click="handleResetPasswordForm"
+            >Đổi mật khẩu</el-button
+          >
         </el-col>
         <el-col :span="24">
-          <nuxt-link to="/dang-nhap"><strong>Quay lại trang</strong> <span class="reset-password-form__action--login">Đăng nhập</span></nuxt-link>
+          <nuxt-link to="/dang-nhap">
+            <strong>Quay lại trang</strong>
+            <span class="reset-password-form__action--login">Đăng nhập</span>
+          </nuxt-link>
         </el-col>
       </el-row>
     </el-form>
@@ -101,7 +104,7 @@ export default class ResetPassword extends Vue {
           await AuthRepository.resetPasswordWithToken(this.resetPasswordForm).then((res: any) => {
             this.$notify.success({
               ...notificationConfig,
-              message: 'Gửi yêu cầu đăng ký thành công',
+              message: 'Đổi mật khẩu thành công',
             });
           });
           this.loading = false;
