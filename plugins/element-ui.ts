@@ -45,6 +45,7 @@ import 'element-ui/lib/theme-chalk/option.css';
 import 'element-ui/lib/theme-chalk/popover.css';
 import 'element-ui/lib/theme-chalk/page-header.css';
 import 'element-ui/lib/theme-chalk/tag.css';
+import 'element-ui/lib/theme-chalk/drawer.css';
 
 // configure default language
 locale.use(vietnameseLang);

@@ -39,6 +39,9 @@ jobs:
       - name: Install packages
         run: yarn install
 
+      - name: Build Nuxt Modules
+        run: yarn build
+
       - name: Run Unit Test
         run: yarn test:cov
 
