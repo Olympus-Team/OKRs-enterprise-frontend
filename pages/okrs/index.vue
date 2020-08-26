@@ -29,6 +29,7 @@
         :text-header="item.textHeader"
         :table-data="item.tableData"
         :reload-data="getDashBoardOkrs"
+        @openDrawer="openDrawer($event)"
       />
     </div>
     <transition name="el-fade-in">
@@ -39,6 +40,7 @@
         :reload-data="getDashBoardOkrs"
       />
     </transition>
+    <okrs-drawer v-if="visibleDrawer" :list-krs="listKrs" :visible-drawer.sync="visibleDrawer" />
   </div>
 </template>
 <script lang="ts">
@@ -71,6 +73,13 @@ export default class OKRsPage extends Vue {
   private loadingComponent: boolean = false;
   private visibleCreateOkrsDialog = false;
   private visible: boolean = false;
+  private listKrs: any[] = [];
+  private visibleDrawer: boolean = false;
+
+  private openDrawer(keyResults: any) {
+    this.listKrs = keyResults;
+    this.visibleDrawer = true;
+  }
 
   private handleCommand(command: string) {
     if (command === 'company') {
