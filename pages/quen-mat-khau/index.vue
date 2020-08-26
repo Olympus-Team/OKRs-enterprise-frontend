@@ -26,7 +26,7 @@ export default class ForgotPasswordPage extends Vue {}
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 .forgot-password-page {
-  padding-top: calc(100vh * (3 / 24));
+  @include account-layout;
   @include breakpoint-down(phone) {
     padding-top: 0;
     flex-direction: column;

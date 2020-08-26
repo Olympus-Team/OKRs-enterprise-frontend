@@ -236,3 +236,21 @@ $breakpoints: (
 @mixin box-shadow {
   box-shadow: inset 0px -1px 0px #dfe3e8;
 }
+
+@mixin account-form {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  width: 500px;
+  padding: $unit-12;
+  box-shadow: $box-shadow-default;
+  background-color: $white;
+  border-radius: $border-radius-base;
+}
+
+@mixin account-layout {
+  height: 93vh;
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
