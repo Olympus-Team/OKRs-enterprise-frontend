@@ -97,10 +97,9 @@ export default class HomePage extends Vue {
   }
 
   private async getAllCycles() {
-    // Get 2 years(8 cycles OKRs) ago until now
-    await CycleRepository.get({ page: 1, limit: 8 })
-      .then((res) => {
-        this.listCycles = res.data.data.items.map((item) => {
+    await await CycleRepository.getMetadata()
+      .then(({ data }) => {
+        this.listCycles = data.data.all.map((item) => {
           return {
             id: item.id,
             label: item.name,

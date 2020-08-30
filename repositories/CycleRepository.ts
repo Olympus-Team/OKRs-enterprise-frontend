@@ -8,6 +8,10 @@ export default class CycleRepository {
     return authenticatedService.get(`${ResourcesEnpoint.CycleOKRs}`, { params });
   }
 
+  public static getMetadata(): Promise<AxiosResponse<any>> {
+    return authenticatedService.get(`${ResourcesEnpoint.MetaData}/cycles`);
+  }
+
   public static getCurrentCycle(): Promise<AxiosResponse<any>> {
     return authenticatedService.get(`${ResourcesEnpoint.CycleOKRs}/current`);
   }

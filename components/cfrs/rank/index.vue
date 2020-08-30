@@ -133,8 +133,8 @@ export default class Rank extends Vue {
       this.listCycles = this.$store.state.cycle.cycles;
     } else {
       try {
-        const { data } = await CycleRepository.get({ page: 1, limit: 8 });
-        this.listCycles = data.data.items.map((item) => {
+        const { data } = await CycleRepository.getMetadata();
+        this.listCycles = data.data.all.map((item) => {
           return {
             id: item.id,
             label: item.name,
