@@ -52,8 +52,7 @@ import OkrsRepository from '@/repositories/OkrsRepository';
 @Component<OKRsPage>({
   name: 'OKRsPage',
   async created() {
-    const userId = this.$store.state.user.tempUser ? this.$store.state.user.tempUser.id : this.$store.state.auth.user.id;
-    await this.getDashBoardOkrs(userId);
+    await this.getDashBoardOkrs();
   },
   mounted() {
     this.loadingComponent = true;
@@ -111,7 +110,9 @@ export default class OKRsPage extends Vue {
     await this.getDashBoardOkrs(userId);
   }
 
-  private async getDashBoardOkrs(userId: number) {
+  private async getDashBoardOkrs(
+    userId: number = this.$store.state.user.tempUser ? this.$store.state.user.tempUser.id : this.$store.state.auth.user.id,
+  ) {
     this.loadingForm = true;
     try {
       const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
