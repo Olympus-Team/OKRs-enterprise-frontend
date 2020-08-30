@@ -23,7 +23,7 @@
         @deleteKr="deleteKrForm($event)"
       />
     </div>
-    <el-button class="el-button el-button--white el-button--small update-okrs__button" @click="addNewKRs">
+    <el-button v-if="!formLoading" class="el-button el-button--white el-button--small update-okrs__button" @click="addNewKRs">
       <icon-add-krs />
       <span>Thêm KRs</span>
     </el-button>
@@ -184,9 +184,7 @@ export default class UpdateOkrsDialog extends Vue {
 .update-okrs {
   &__button {
     margin: $unit-4 0 $unit-4 0;
-    &:hover,
-    &:focus,
-    &:active {
+    &:hover {
       span {
         svg {
           path {

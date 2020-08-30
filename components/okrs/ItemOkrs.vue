@@ -20,7 +20,7 @@
                   <el-progress :percentage="+objective.progress" :color="customColors" :text-inside="true" :stroke-width="26" />
                 </div>
                 <div class="expand__infor--action">
-                  <span :class="isUpProgress(changeValue)">{{ changeValue }}%</span>
+                  <span :class="isUpProgress(objective.changing)">{{ objective.changing }}%</span>
                   <okrs-action-tooltip
                     class="expand__infor--action__tooltip"
                     :reload-data="reloadData"
@@ -55,7 +55,7 @@
         <el-table-column label="Thay đổi" width="200">
           <template v-slot="{ row }">
             <div class="item__action">
-              <p :class="isUpProgress(row.progress)">{{ row.progress }}%</p>
+              <p :class="isUpProgress(row.changing)">{{ row.changing }}%</p>
               <okrs-action-tooltip
                 :reload-data="reloadData"
                 :editable="editableOkrs(row.user.id)"
