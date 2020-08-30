@@ -20,7 +20,7 @@
               <img :src="item.avatarURL ? item.avatarURL : item.gravatarURL" alt="avatar" />
             </el-avatar>
             <div class="navbar-history__search--info">
-              <p class="navbar-history__search--info--fullName">{{ item.fullName }}</p>
+              <b class="navbar-history__search--info--fullName">{{ item.fullName }}</b>
               <p class="navbar-history__search--info--department">{{ getInforUser(item) }}</p>
             </div>
           </div>
@@ -97,10 +97,12 @@ export default class NavbarCrfs extends Vue {
   }
 
   private getInforUser(item: any): String {
-    if (item.isLeader) {
-      return `Trưởng ${item.team.name}`;
+    if (item.role.name === 'ADMIN') {
+      return 'OKRs Master';
+    } else if (item.isLeader) {
+      return `Trưởng ${item.team.name.toLowerCase()}`;
     } else {
-      return `Thành viên ${item.team.name}`;
+      return `Thành viên ${item.team.name.toLowerCase()}`;
     }
   }
 

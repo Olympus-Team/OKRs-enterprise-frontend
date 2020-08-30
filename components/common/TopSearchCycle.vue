@@ -20,7 +20,7 @@
               <img :src="item.avatarURL ? item.avatarURL : item.gravatarURL" alt="avatar" />
             </el-avatar>
             <div class="user-suggestion--info">
-              <p class="user-suggestion--info--fullName">{{ item.fullName }}</p>
+              <b class="user-suggestion--info--fullName">{{ item.fullName }}</b>
               <p class="user-suggestion--info--department">{{ getInforUser(item) }}</p>
             </div>
           </div>
@@ -79,10 +79,12 @@ export default class TopSearchCycle extends Vue {
   }
 
   private getInforUser(item: any): String {
-    if (item.isLeader) {
-      return `Trưởng ${item.team.name}`;
+    if (item.role.name === 'ADMIN') {
+      return 'OKRs Master';
+    } else if (item.isLeader) {
+      return `Trưởng ${item.team.name.toLowerCase()}`;
     } else {
-      return `Thành viên ${item.team.name}`;
+      return `Thành viên ${item.team.name.toLowerCase()}`;
     }
   }
 
