@@ -42,7 +42,7 @@
     "node-sass": "^4.14.1",
     "nuxt": "2.13.3",
     "nuxt-clipboard2": "^0.2.1",
-    "sass-loader": "^9.0.2",
+    "sass-loader": "^10.0.1",
     "vue-class-component": "^7.2.5",
     "vue-fragment": "^1.5.1",
     "vue-infinite-loading": "^2.4.5",
