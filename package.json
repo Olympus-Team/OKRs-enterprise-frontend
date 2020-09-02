@@ -8,10 +8,8 @@
     "build:clean": "rimraf .nuxt dist",
     "build:nuxt": "cross-env NODE_ENV=production nuxt-ts build",
     "ci": "run-s test build",
-    "start": "yarn build && yarn export && yarn serve",
+    "start:production": "cross-env NODE_ENV=production yarn nuxt-ts generate && yarn nuxt-ts start --port 8080",
     "analyze": "nuxt-ts build --analyze",
-    "export": "cross-env NODE_ENV=production nuxt-ts export",
-    "serve": "cross-env NODE_ENV=production nuxt-ts serve --port 8080",
     "lint": "run-s lint:*",
     "lint:files": "ls-lint",
     "lint:eslint": "eslint --cache --ext .ts,.js,.vue --ignore-path .gitignore .",
@@ -29,8 +27,8 @@
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.9.34",
-    "@nuxt/types": "^2.13.3",
-    "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxt/types": "2.14.4",
+    "@nuxt/typescript-runtime": "1.0.0",
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/markdownit": "^1.2.10",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
@@ -40,7 +38,7 @@
     "highlight.js": "^10.1.2",
     "js-cookie": "^2.2.1",
     "node-sass": "^4.14.1",
-    "nuxt": "2.13.3",
+    "nuxt": "2.14.4",
     "nuxt-clipboard2": "^0.2.1",
     "sass-loader": "^9.0.2",
     "vue-class-component": "^7.2.5",
@@ -51,7 +49,7 @@
   },
   "devDependencies": {
     "@ls-lint/ls-lint": "^1.9.0",
-    "@nuxt/components": "^1.0.7",
+    "@nuxt/components": "^1.1.0",
     "@nuxt/typescript-build": "^2.0.2",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^3.0.0",
@@ -71,7 +69,6 @@
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.2.5",
-    "imagemin-lint-staged": "^0.4.0",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.11",
     "npm-run-all": "^4.1.5",
@@ -81,7 +78,6 @@
     "ts-loader": "^8.0.1",
     "typescript": "3.9.6",
     "vue-jest": "^3.0.4",
-    "vue-svg-loader": "^0.16.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-svg-loader": "^0.16.0"
   }
 }

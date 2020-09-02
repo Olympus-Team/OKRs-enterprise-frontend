@@ -2,9 +2,19 @@ import { NuxtConfig } from '@nuxt/types';
 
 const nuxtConfig: NuxtConfig = {
   /**
-   * @docs https://nuxtjs.org/api/configuration-generate#crawler
+   * @docs https://nuxtjs.org/api/configuration-generate
    */
-  generate: {},
+  generate: {
+    cache: {
+      ignore: [
+        // When something changed in the docs folder, do not re-build via webpack
+        '.vscode',
+        '.github',
+        '.docker',
+      ],
+    },
+    fallback: '404.html',
+  },
   server: {
     port: process.env.port,
   },
