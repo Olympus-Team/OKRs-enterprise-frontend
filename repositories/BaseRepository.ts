@@ -42,6 +42,9 @@ authenticatedService.interceptors.response.use(
           message: 'Bạn không có quyền truy cập vào khu vực này',
         });
         break;
+      case 404:
+        window.location.href = `${process.env.baseURL}/404`;
+        break;
       case 440: // error already exist instance
         Notification.error({
           ...notificationConfig,

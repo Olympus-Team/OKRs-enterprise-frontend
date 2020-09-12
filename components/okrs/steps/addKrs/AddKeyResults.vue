@@ -125,7 +125,7 @@ export default class CreateObjectiveStep extends Vue {
             await this.reloadData();
             this.$notify.success({
               ...notificationConfig,
-              message: 'Cập nhật OKRs thành công',
+              message: 'Tạo OKRs thành công',
             });
           });
         } catch (error) {

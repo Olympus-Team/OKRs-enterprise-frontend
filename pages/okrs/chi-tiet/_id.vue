@@ -18,8 +18,13 @@
         <span class="username">{{ objective.user.fullName }}</span>
         <span class="alignedWith">Liên kết tới</span>
         <span v-if="checkIsRootObjective(objective)" style="display: none;"></span>
-        <a v-else :href="`${$config.baseURL}/OKRs/chi-tiet/${objective.parentObjective.id}`" target="_blank" class="parentOkrs">
-          {{ objective.parentObjective.title }}
+        <a
+          v-else
+          :href="objective.parentObjective ? `${$config.baseURL}/OKRs/chi-tiet/${objective.parentObjective.id}` : null"
+          target="_blank"
+          class="parentOkrs"
+        >
+          {{ objective.parentObjective ? objective.parentObjective.title : null }}
         </a>
         <span v-if="!checkIsRootObjective(objective)" class="alignedBy">Được liên kết với</span>
         <div v-if="objective.alignmentObjectives.length" class="list-aligned-okrs">

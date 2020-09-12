@@ -4,7 +4,9 @@
       <el-col v-if="listWatingFeedback.inferior && $store.state.auth.user.isLeader" v-loading="loadingInferior" :md="12" :lg="12">
         <div class="feedback__col">
           <p class="feedback__col__header">{{ displayHeader('inferior') }}</p>
-          <p v-if="!listWatingFeedback.inferior.checkins.items.length" class="none-cfr">Không có dữ liệu để phản hồi</p>
+          <p v-if="!listWatingFeedback.inferior.checkins.items.length" class="none-cfr">
+            Không có dữ liệu để phản hồi
+          </p>
           <div v-for="item in listWatingFeedback.inferior.checkins.items" v-else :key="item.id" class="cfr">
             <div class="cfr__left" @click="viewDetailCheckin(item, listWatingFeedback.inferior.type)">
               <el-avatar :size="30">
@@ -38,7 +40,9 @@
       <el-col v-if="listWatingFeedback.superior" :md="12" :lg="12">
         <div class="feedback__col">
           <p class="feedback__col__header">{{ displayHeader('superior') }}</p>
-          <p v-if="!listWatingFeedback.superior.checkins.length" class="none-cfr">Không có dữ liệu để phản hồi</p>
+          <p v-if="notHaveSuperiorData(listWatingFeedback.superior)" class="none-cfr">
+            Không có dữ liệu để phản hồi
+          </p>
           <div v-for="item in listWatingFeedback.superior.checkins" v-else :key="item.id" class="cfr">
             <div class="cfr__left" @click="viewDetailCheckin(item, listWatingFeedback.superior.type)">
               <el-avatar :size="30">
@@ -224,6 +228,10 @@ export default class Feedback extends Vue {
         return 'Phản hồi cho tôi';
       }
     }
+  }
+
+  private notHaveSuperiorData(value: any): boolean {
+    return !Object.keys(value).length || !value.checkins.length;
   }
 }
 </script>

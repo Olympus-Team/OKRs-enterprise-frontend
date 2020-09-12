@@ -78,8 +78,9 @@
             </el-col>
             <el-col :sm="24" :lg="12">
               <el-form-item label-width="30%" :prop="'isCompleted'" label="Hoàn thành OKRs">
-                <el-checkbox v-model="syncCheckin.isCompleted"></el-checkbox> </el-form-item
-            ></el-col>
+                <el-checkbox v-model="syncCheckin.isCompleted"></el-checkbox>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-form-item v-else label-width="20%" :prop="'nextCheckinDate'" label="Ngày check-in tiếp theo">
             <el-date-picker
@@ -232,6 +233,11 @@ export default class DetailHistory extends Vue {
                 ...notificationConfig,
                 message: 'Bạn không thể tạo checkin với Objective này',
               });
+            } else if (error.response.data.statusCode === 485) {
+              this.$notify.error({
+                ...notificationConfig,
+                message: 'Không thể tạo checkin do chưa có trưởng phòng',
+              });
             }
             this.$router.push('/checkin');
           }
@@ -261,6 +267,11 @@ export default class DetailHistory extends Vue {
               this.$notify.error({
                 ...notificationConfig,
                 message: 'Bạn không thể tạo checkin với Objective này',
+              });
+            } else if (error.response.data.statusCode === 485) {
+              this.$notify.error({
+                ...notificationConfig,
+                message: 'Không thể tạo checkin do chưa có trưởng phòng',
               });
             }
             this.$router.push('/checkin');
@@ -309,6 +320,11 @@ export default class DetailHistory extends Vue {
                 ...notificationConfig,
                 message: 'Bạn không thể tạo checkin với Objective này',
               });
+            } else if (error.response.data.statusCode === 485) {
+              this.$notify.error({
+                ...notificationConfig,
+                message: 'Không thể tạo checkin do chưa có trưởng phòng',
+              });
             }
             this.$route.name === 'checkin-company-id' ? this.$router.push('/checkin?tab=checkin-company') : this.$router.push('/checkin');
           }
@@ -338,6 +354,11 @@ export default class DetailHistory extends Vue {
               this.$notify.error({
                 ...notificationConfig,
                 message: 'Bạn không thể tạo checkin với Objective này',
+              });
+            } else if (error.response.data.statusCode === 485) {
+              this.$notify.error({
+                ...notificationConfig,
+                message: 'Không thể tạo checkin do chưa có trưởng phòng',
               });
             }
             this.$route.name === 'checkin-company-id' ? this.$router.push('/checkin?tab=checkin-company') : this.$router.push('/checkin');
@@ -461,6 +482,11 @@ export default class DetailHistory extends Vue {
                     ...notificationConfig,
                     message: 'Bạn không thể tạo checkin với Objective này',
                   });
+                } else if (error.response.data.statusCode === 485) {
+                  this.$notify.error({
+                    ...notificationConfig,
+                    message: 'Không thể tạo checkin do chưa có trưởng phòng',
+                  });
                 }
                 this.$router.push('/checkin');
               }
@@ -509,6 +535,11 @@ export default class DetailHistory extends Vue {
                   this.$notify.error({
                     ...notificationConfig,
                     message: 'Bạn không thể tạo checkin với Objective này',
+                  });
+                } else if (error.response.data.statusCode === 485) {
+                  this.$notify.error({
+                    ...notificationConfig,
+                    message: 'Không thể tạo checkin do chưa có trưởng phòng',
                   });
                 }
                 this.$router.push('/checkin');
@@ -583,6 +614,11 @@ export default class DetailHistory extends Vue {
                     ...notificationConfig,
                     message: 'Bạn không thể tạo checkin với Objective này',
                   });
+                } else if (error.response.data.statusCode === 485) {
+                  this.$notify.error({
+                    ...notificationConfig,
+                    message: 'Không thể tạo checkin do chưa có trưởng phòng',
+                  });
                 }
                 this.$route.name === 'checkin-company-id' ? this.$router.push('/checkin?tab=checkin-company') : this.$router.push('/checkin');
               }
@@ -631,6 +667,11 @@ export default class DetailHistory extends Vue {
                   this.$notify.error({
                     ...notificationConfig,
                     message: 'Bạn không thể tạo checkin với Objective này',
+                  });
+                } else if (error.response.data.statusCode === 485) {
+                  this.$notify.error({
+                    ...notificationConfig,
+                    message: 'Không thể tạo checkin do chưa có trưởng phòng',
                   });
                 }
                 this.$route.name === 'checkin-company-id' ? this.$router.push('/checkin?tab=checkin-company') : this.$router.push('/checkin');

@@ -249,7 +249,7 @@ $breakpoints: (
 }
 
 @mixin account-layout {
-  height: 93vh;
+  min-height: calc(100vh - 45px);
   display: flex;
   place-content: center;
   align-items: center;

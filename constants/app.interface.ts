@@ -8,7 +8,7 @@ export interface LinkMeta {
 
 export interface PayloadOkrs {
   objective: any;
-  keyResult: any[];
+  keyResult?: any[];
 }
 
 export interface LoginDTO {

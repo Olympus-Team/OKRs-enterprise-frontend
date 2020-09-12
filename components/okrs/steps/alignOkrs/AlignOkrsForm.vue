@@ -1,6 +1,6 @@
 <template>
   <div class="align-okrs-form">
-    <el-form ref="alignOkrs" :model="syncAlignOkrs" :rules="rules" class="align-okrs-form__input">
+    <el-form ref="alignOkrs" :model="syncAlignOkrs" class="align-okrs-form__input">
       <el-form-item prop="objectiveId">
         <el-select v-model.number="syncAlignOkrs.objectiveId" filterable no-match-text="Không tìm thấy kết quả" placeholder="Chọn OKRs liên kết chéo">
           <el-option v-for="item in itemsAlignOkrs" :key="item.id" :label="staffOkrsFormat(item)" :value="item.id" />
@@ -43,9 +43,9 @@ export default class InputAlignOkrs extends Vue {
   private hovering: boolean = false;
   private itemsAlignOkrs: any[] = [];
 
-  private rules: Maps<Rule[]> = {
-    objectiveId: [{ type: 'number', required: true, message: 'Vui lòng chọn OKRs để liên kết', trigger: ['blur', 'change'] }],
-  };
+  // private rules: Maps<Rule[]> = {
+  //   objectiveId: [{ type: 'number', required: true, message: 'Vui lòng chọn OKRs để liên kết', trigger: ['blur', 'change'] }],
+  // };
 
   private deleteAlignOkrs(indexAlignForm: number) {
     this.$emit('deleteAlignOkrs', indexAlignForm);

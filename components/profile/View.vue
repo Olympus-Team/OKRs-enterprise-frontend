@@ -42,7 +42,7 @@
             <div class="info__row">
               <el-row class="info__row--custom" :gutter="20">
                 <el-col :sm="24" :md="12">
-                  <el-form-item class="custome-label" prop="fullName" label="Họ và tên">
+                  <el-form-item class="custom-label" prop="fullName" label="Họ và tên">
                     <el-input v-model="profileForm.fullName" placeholder="Nhập vào họ và tên"></el-input>
                   </el-form-item>
                 </el-col>

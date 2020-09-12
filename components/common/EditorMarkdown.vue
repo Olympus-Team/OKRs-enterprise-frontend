@@ -80,6 +80,7 @@ export default class EditorMarkdown extends Vue {
 
   private config = {
     autofocus: true,
+    spellChecker: false,
     promptURLs: true,
     toolbar: [
       'bold',

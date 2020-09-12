@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loadingTable">
-    <el-table v-if="tableData.length > 0" :data="tableData" empty-text="Không có dữ liệu" class="unit-admin">
+    <el-table :data="tableData" empty-text="Không có dữ liệu" class="unit-admin">
       <el-table-column prop="index" label="Thứ tự sắp xếp" />
       <el-table-column prop="type" label="Tên đơn vị" />
       <el-table-column prop="preset" label="Tên viết tắt" />

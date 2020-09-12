@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt-ts",
     "build": "run-s build:*",
-    "build:clean": "rimraf .nuxt dist",
-    "build:nuxt": "cross-env NODE_ENV=production nuxt-ts build",
+    "build:nuxt": "cross-env NODE_ENV=production nuxt-ts build && nuxt-ts start",
     "ci": "run-s test build",
     "start:production": "cross-env NODE_ENV=production yarn nuxt-ts generate && yarn nuxt-ts start --port 8080",
     "analyze": "nuxt-ts build --analyze",

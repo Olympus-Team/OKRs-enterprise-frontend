@@ -96,7 +96,6 @@ export default class SettingCompanyPage extends Vue {
   };
 
   private switchTabs(currentTab: string) {
-    this.tableData = [];
     if (currentTab === AdminTabsVn.CycleOKR) {
       this.adminParams.page = 1;
       this.adminParams.text = '';
@@ -141,6 +140,7 @@ export default class SettingCompanyPage extends Vue {
 
   @Watch('$route.query', { deep: true })
   private async getListData() {
+    this.tableData = [];
     this.currentTab =
       this.$route.query.tab === AdminTabsEn.MeasureUnit
         ? AdminTabsVn.MeasureUnit
@@ -159,7 +159,7 @@ export default class SettingCompanyPage extends Vue {
     try {
       if (this.$route.query.tab === AdminTabsEn.CycleOKR || this.$route.query.tab === undefined) {
         await CycleRepository.get(this.adminParams).then((res) => {
-          this.tableData = Object.freeze(res.data.data.items);
+          this.tableData = res.data.data.items;
           this.totalItems = res.data.data.meta.totalItems;
         });
       } else if (this.$route.query.tab === AdminTabsEn.Department) {
@@ -169,7 +169,7 @@ export default class SettingCompanyPage extends Vue {
         });
       } else if (this.$route.query.tab === AdminTabsEn.EvaluationCriterial) {
         await EvaluationCriteriaRepository.get(this.adminParams).then((res) => {
-          this.tableData = Object.freeze(res.data.data.items);
+          this.tableData = res.data.data.items;
           this.totalItems = res.data.data.meta.totalItems;
         });
       } else if (this.$route.query.tab === AdminTabsEn.JobPosition) {

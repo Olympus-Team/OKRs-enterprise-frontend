@@ -18,7 +18,7 @@
       </el-table-column>
       <el-table-column align="center" label="Thay đổi" min-width="100">
         <template slot-scope="{ row }">
-          <span :style="`color: ${customColorsChanging(row.change)}`">{{ row.change }}</span>
+          <span :style="`color: ${customColorsChanging(row.change)}`">{{ row.change }}%</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="Lịch sử" min-width="150">
@@ -168,10 +168,10 @@ export default class MyOkrsCheckin extends Vue {
   }
   .el-progress {
     .el-progress-bar {
-      &__innerText {
+      /* &__innerText {
         color: #606266;
         font-size: 14px;
-      }
+      } */
       &__outer {
         background-color: $purple-primary-2;
         border-radius: $border-radius-medium;

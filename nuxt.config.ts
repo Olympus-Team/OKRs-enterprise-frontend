@@ -1,4 +1,5 @@
 import { NuxtConfig } from '@nuxt/types';
+import { Configuration as WebpackConfiguration, ExternalsFunctionCallback, ExternalsFunctionElement } from 'webpack';
 
 const nuxtConfig: NuxtConfig = {
   /**
@@ -36,13 +37,13 @@ const nuxtConfig: NuxtConfig = {
    * @description Nuxt target
    * @docs https://nuxtjs.org/api/configuration-target
    */
-  target: 'static',
+  target: 'server',
   /**
    * @description Headers of the page
    * @docs https://nuxtjs.org/api/configuration-head
    */
   head: {
-    titleTemplate: '%s - FlameOKRs',
+    titleTemplate: '%s | FlameOKRs',
     title: 'Awesome tool OKRs',
     meta: [
       { charset: 'utf-8' },
@@ -164,9 +165,11 @@ const nuxtConfig: NuxtConfig = {
         return [['@nuxt/babel-preset-app', { loose: true }]];
       },
     },
-    extend({ module }: any, { isDev, isClient }: any): any {
+    extend({ module, externals }: WebpackConfiguration, { isDev, isClient }: any): any {
       if (module !== undefined) {
-        const svgRule = module.rules.find((rule) => rule.test.test('.svg'));
+        // @ts-ignore
+        const svgRule = module.rules.find((rule) => rule.test!.test('.svg'));
+        // @ts-ignore
         svgRule.test = /\.(png|jpe?g|gif|webp)$/;
 
         module.rules.push({
@@ -182,6 +185,14 @@ const nuxtConfig: NuxtConfig = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/u,
         });
+        //  dynamically loaded only when they are needed
+        // @docs https://www.amcharts.com/docs/v4/getting-started/integrations/using-webpack/#Large_file_sizes
+        (externals as ExternalsFunctionElement) = (_: any, request: any, callback: ExternalsFunctionCallback) => {
+          if (/xlsx|canvg|pdfmake/.test(request)) {
+            return callback(null, 'commonjs ' + request);
+          }
+          callback();
+        };
       }
     },
   },

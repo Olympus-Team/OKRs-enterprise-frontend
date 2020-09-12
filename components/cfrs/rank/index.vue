@@ -30,7 +30,10 @@
                   <p class="rank-item__left__info--department">{{ displayDepartment(item) }}</p>
                 </div>
               </div>
-              <div class="rank-item__right">{{ item.sum }} <icon-star-dashboard /></div>
+              <div class="rank-item__right">
+                {{ item.sum }}
+                <icon-star-dashboard />
+              </div>
             </div>
           </div>
         </div>
@@ -52,7 +55,10 @@
                 <p class="rank-item__left__info--department">{{ displayDepartment(item) }}</p>
               </div>
             </div>
-            <div class="rank-item__right">{{ item.sum }} <icon-star-dashboard /></div>
+            <div class="rank-item__right">
+              {{ item.sum }}
+              <icon-star-dashboard />
+            </div>
           </div>
         </div>
       </el-col>
@@ -125,7 +131,13 @@ export default class Rank extends Vue {
   }
 
   private displayDepartment(item: any): String {
-    return item.isLeader ? `Leader ${item.name}` : `Thành viên ${item.name}`;
+    if (item.rolename === 'ADMIN') {
+      return 'OKRs Master';
+    } else if (item.isLeader) {
+      return `Trưởng ${item.name.toLowerCase()}`;
+    } else {
+      return `Thành viên ${item.name.toLowerCase()}`;
+    }
   }
 
   private async getListCycle() {

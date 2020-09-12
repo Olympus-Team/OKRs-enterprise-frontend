@@ -9,19 +9,38 @@
   >
     <div class="align-okrs__form">
       <div v-loading="formLoading" class="align-okrs__form--item">
-        <step-align-okrs-form
-          v-for="(item, index) in itemsAlignOkrs"
-          :key="index"
-          ref="alignForms"
-          :index-align-form="index"
-          :align-okrs.sync="item"
-          @deleteAlignOkrs="deleteAlignOkrs($event)"
-        />
+        <div v-if="listOkrs.length > 0" class="item-parent">
+          <p class="item-parent__title">Liên kết OKRs cấp trên</p>
+          <el-select
+            v-if="listOkrs.length > 0"
+            v-model="parentObjectiveId"
+            filterable
+            no-match-text="Không tìm thấy kết quả"
+            placeholder="Chọn OKRs cấp trên"
+          >
+            <el-option v-for="okrs in listOkrs" :key="okrs.id" :label="okrsLeaderFormat(okrs)" :value="okrs.id" />
+          </el-select>
+        </div>
+        <div class="item-aligned">
+          <p class="item-aligned__title">Liên kết chéo</p>
+          <div class="item-aligned__items">
+            <div class="item-aligned__items--form">
+              <step-align-okrs-form
+                v-for="(item, index) in itemsAlignOkrs"
+                :key="index"
+                ref="alignForms"
+                :index-align-form="index"
+                :align-okrs.sync="item"
+                @deleteAlignOkrs="deleteAlignOkrs($event)"
+              />
+            </div>
+            <el-button class="el-button el-button--white el-button--small align-okrs__form--button" @click="addNewAlignOkrs">
+              <icon-add-krs />
+              <span>Thêm Okrs liên kết chéo</span>
+            </el-button>
+          </div>
+        </div>
       </div>
-      <el-button class="el-button el-button--white el-button--small align-okrs__form--button" @click="addNewAlignOkrs">
-        <icon-add-krs />
-        <span>Thêm Okrs liên kết chéo</span>
-      </el-button>
     </div>
     <span slot="footer">
       <el-button class="el-button--white el-button--modal" @click="handleCloseDialog">Hủy</el-button>
@@ -42,6 +61,7 @@ import { notificationConfig, confirmWarningConfig } from '@/constants/app.consta
     IconAddKrs,
   },
   created() {
+    this.getListOkrs();
     if (this.temporaryOkrs.alignmentObjectives.length) {
       this.itemsAlignOkrs = this.temporaryOkrs.alignmentObjectives.map((item) => {
         return {
@@ -67,6 +87,8 @@ export default class AlignOkrsDialog extends Vue {
   private itemsAlignOkrs: any = [];
   private loading: boolean = false;
   private formLoading: boolean = false;
+  private parentObjectiveId: number | any = this.temporaryOkrs.parentObjectiveId ? this.temporaryOkrs.parentObjectiveId : null;
+  private listOkrs: any[] = [];
 
   private handleDataDialog() {
     const numberForms = this.itemsAlignOkrs.length;
@@ -107,25 +129,34 @@ export default class AlignOkrsDialog extends Vue {
           validForm++;
         }
       });
-      if (!tempAlignOkrs.has(form.syncAlignOkrs.objectiveId)) {
-        tempAlignOkrs.add(form.syncAlignOkrs.objectiveId);
-      } else {
-        invalidContent++;
+      if (form.syncAlignOkrs.objectiveId !== null) {
+        if (!tempAlignOkrs.has(form.syncAlignOkrs.objectiveId)) {
+          tempAlignOkrs.add(form.syncAlignOkrs.objectiveId);
+        } else {
+          invalidContent++;
+        }
       }
     });
+    // console.log(': -------------------------------------------------');
+    // console.log('updateAlignOkrs -> invalidContent', invalidContent);
+    // console.log(': -------------------------------------------------');
     if (invalidContent > 0) {
       setTimeout(() => {
         this.loading = false;
       }, 300);
-      this.$message.error('Trùng lặp OKRs, xin vui lòng chọn lại');
+      this.$message.error('Trùng lặp OKRs liên kết chéo, xin vui lòng chọn lại');
     } else if (validForm > 0) {
       setTimeout(() => {
         this.loading = false;
       }, 300);
     } else {
       const payload: PayloadOkrs = {
-        objective: Object.assign({}, { id: +this.temporaryOkrs.id }, { alignObjectivesId: Array.from(tempAlignOkrs) }),
-        keyResult: this.temporaryOkrs.keyResults,
+        objective: Object.assign(
+          {},
+          { id: +this.temporaryOkrs.id },
+          { alignObjectivesId: !tempAlignOkrs.size ? [] : Array.from(tempAlignOkrs) },
+          { parentObjectiveId: this.parentObjectiveId },
+        ),
       };
       try {
         await OkrsRepository.createOrUpdateOkrs(payload).then((res) => {
@@ -150,6 +181,27 @@ export default class AlignOkrsDialog extends Vue {
       this.formLoading = false;
     }, 300);
   }
+
+  private async getListOkrs() {
+    const cycleId = this.$store.state.cycle.cycleTemp ? this.$store.state.cycle.cycleTemp : this.$store.state.cycle.cycle.id;
+    if (this.isTeamLeader()) {
+      await OkrsRepository.getListOkrs(cycleId, 1).then(({ data }) => {
+        this.listOkrs = Object.freeze(data.data);
+      });
+    } else {
+      await OkrsRepository.getListOkrs(cycleId, 2).then(({ data }) => {
+        this.listOkrs = Object.freeze(data.data);
+      });
+    }
+  }
+
+  private isTeamLeader(): boolean {
+    return this.$store.state.auth.user.isLeader;
+  }
+
+  private okrsLeaderFormat(item) {
+    return `[${item.user.email}] ${item.title}`;
+  }
 }
 </script>
 <style lang="scss">
@@ -161,9 +213,32 @@ export default class AlignOkrsDialog extends Vue {
     place-content: center space-between;
     padding-bottom: $unit-8;
     &--item {
-      width: 70%;
+      width: 100%;
       display: flex;
       flex-direction: column;
+      .item-parent {
+        margin-bottom: 1rem;
+        &__title {
+          font-size: $unit-4;
+          font-weight: 500;
+          margin-bottom: $unit-2;
+        }
+      }
+      .item-aligned {
+        &__title {
+          font-size: $unit-4;
+          font-weight: 500;
+          margin-bottom: $unit-2;
+        }
+        &__items {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          &--form {
+            width: 100%;
+          }
+        }
+      }
     }
     &--button {
       margin-left: $unit-10;

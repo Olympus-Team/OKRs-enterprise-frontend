@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column prop="role" label="Vai trò">
         <template slot-scope="{ row }">
-          <span>{{ row.role.name }}</span>
+          <span>{{ row.role.name === 'ADMIN' ? 'Admin' : row.isLeader ? 'Team Leader' : row.role.name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Thao tác" align="center">
@@ -63,7 +63,7 @@
             <el-form-item label="Email:" prop="email" class="custom-label">
               <el-input v-model="tempUpdateUser.email" placeholder="Nhập email" @keyup.enter.native="handleUpdate(tempUpdateUser)" />
             </el-form-item>
-            <el-form-item label="Phòng ban:" class="custom-label" prop="teamId">
+            <el-form-item v-if="tempUpdateUser.roleId !== Number(1)" label="Phòng ban:" class="custom-label" prop="teamId">
               <el-select
                 v-model="tempUpdateUser.teamId"
                 class="custom-label"
@@ -83,7 +83,7 @@
                 <el-option v-for="item in jobs" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
-            <el-form-item label="Vai trò:" class="custom-label" prop="roleId">
+            <el-form-item v-if="tempUpdateUser.roleId !== Number(1)" label="Vai trò:" class="custom-label" prop="roleId">
               <el-select
                 v-model="tempUpdateUser.roleId"
                 class="custom-label"
@@ -93,7 +93,7 @@
                 <el-option v-for="item in roles" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
-            <el-checkbox v-model="tempUpdateUser.isLeader">Trưởng nhóm</el-checkbox>
+            <el-checkbox v-if="tempUpdateUser.roleId !== Number(1)" v-model="tempUpdateUser.isLeader">Trưởng nhóm</el-checkbox>
           </el-form>
         </el-col>
       </el-row>

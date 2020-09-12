@@ -1,13 +1,13 @@
 <template>
   <lesson-content :post="post">
-    <el-page-header slot="header" title="Bài Học OKRs" @back="goBack()" />
+    <el-page-header slot="header" title="Quản lý bài học OKRs" @back="goBack()" />
   </lesson-content>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import LessonRepository from '@/repositories/LessonRepository';
-@Component<LessonDetail>({
-  name: 'LessonDetail',
+@Component<ManageLessonDetail>({
+  name: 'ManageLessonDetail',
   head() {
     return {
       title: 'Chi tiết bài học OKRs',
@@ -23,10 +23,10 @@ import LessonRepository from '@/repositories/LessonRepository';
     } catch (error) {}
   },
 })
-export default class LessonDetail extends Vue {
+export default class ManageLessonDetail extends Vue {
   private prevRoute: any = null;
   private goBack() {
-    this.$router.push('/hoc-okrs');
+    this.$router.push('/bai-hoc-okrs');
   }
 }
 </script>

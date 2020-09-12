@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column prop="role" label="Vai trò">
         <template slot-scope="{ row }">
-          <span>{{ row.role.name }}</span>
+          <span>{{ row.role.name === 'ADMIN' ? 'Admin' : row.isLeader ? 'Team Leader' : row.role.name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Thao tác" align="center">

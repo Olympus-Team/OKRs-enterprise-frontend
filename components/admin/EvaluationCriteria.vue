@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loadingTable">
-    <el-table v-if="tableData.length > 0" :data="tableData" empty-text="Không có dữ liệu" class="criteria-admin">
+    <el-table :data="tableData" empty-text="Không có dữ liệu" class="criteria-admin">
       <el-table-column prop="content" label="Tiêu chí đánh giá" min-width="400px"></el-table-column>
       <el-table-column label="Số sao" min-width="70px">
         <template v-slot="{ row }">
@@ -127,7 +127,7 @@ export default class ManageEvaluationCriteria extends Vue {
     content: [{ validator: this.sanitizeInput, trigger: 'change' }, max255Char],
     numberOfStar: [
       { type: 'number', required: true, message: 'Số sao phải là 1 số nguyên', trigger: 'blur' },
-      { min: 1, max: 100, message: 'Số sao tối thiểu là 1 và tối đa là 100', trigger: 'blur' },
+      { type: 'number', min: 1, max: 100, message: 'Số sao tối thiểu là 1 và tối đa là 100', trigger: 'blur' },
     ],
     type: [{ type: 'string', required: true, message: 'Vui lòng chọn kiểu của tiêu chí', trigger: 'change' }],
   };

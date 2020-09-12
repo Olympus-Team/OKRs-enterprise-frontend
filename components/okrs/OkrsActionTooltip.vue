@@ -54,7 +54,14 @@ export default class OkrsActionTooltip extends Vue {
             message: 'Xóa OKRs thành công',
           });
         });
-      } catch (error) {}
+      } catch (error) {
+        if (error.response.data.statusCode === 481) {
+          this.$notify.error({
+            ...notificationConfig,
+            message: 'Không được xóa OKRs đang được liên kết',
+          });
+        }
+      }
     });
   }
 }

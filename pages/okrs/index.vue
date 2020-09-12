@@ -51,6 +51,11 @@ import { MutationState, DispatchAction } from '@/constants/app.vuex';
 import OkrsRepository from '@/repositories/OkrsRepository';
 @Component<OKRsPage>({
   name: 'OKRsPage',
+  head() {
+    return {
+      title: 'OKRs',
+    };
+  },
   async created() {
     await this.getDashBoardOkrs();
   },

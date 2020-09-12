@@ -43,7 +43,6 @@
 <script lang="ts">
 import { Component, Vue, PropSync, Prop } from 'vue-property-decorator';
 import { Form } from 'element-ui';
-
 import { notificationConfig } from '@/constants/app.constant';
 import { CycleDTO } from '@/constants/app.interface';
 import { Maps, Rule } from '@/constants/app.type';
@@ -113,6 +112,12 @@ export default class CycleOkrsDialog extends Vue {
           this.reloadData();
           this.syncCycleDialog = false;
         } catch (error) {
+          if (error.response.data.statusCode === 486) {
+            this.$notify.error({
+              ...notificationConfig,
+              message: 'Ngày bắt đầu hoặc ngày kết thúc không hợp lệ',
+            });
+          }
           this.loading = false;
         }
       }
@@ -127,6 +132,7 @@ export default class CycleOkrsDialog extends Vue {
   private handleCloseDialog() {
     (this.$refs.temCreateCycle as Form).clearValidate();
     this.syncCycleDialog = false;
+    this.clearForm();
   }
 
   private clearForm(): void {

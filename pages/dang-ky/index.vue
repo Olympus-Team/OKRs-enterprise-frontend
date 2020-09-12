@@ -45,7 +45,11 @@ export default class LoginPage extends Vue {}
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 .register-page {
-  @include account-layout;
+  min-height: calc(100vh - 45px);
+  padding: 1rem 0;
+  display: flex;
+  place-content: center;
+  align-items: center;
   @include breakpoint-down(phone) {
     flex-direction: column;
     padding: 0;

@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loadingTable">
-    <el-table v-if="tableData.length > 0" :data="tableData" empty-text="Không có dữ liệu" class="job-admin">
+    <el-table :data="tableData" empty-text="Không có dữ liệu" class="job-admin">
       <el-table-column prop="name" label="Tên vị trí"></el-table-column>
       <el-table-column prop="description" label="Mô tả"></el-table-column>
       <el-table-column label="Ngày cập nhật">

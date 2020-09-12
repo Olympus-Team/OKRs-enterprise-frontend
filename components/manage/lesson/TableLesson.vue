@@ -96,7 +96,7 @@ export default class TableLesson extends Vue {
   }
 
   private handleClickTitle(slug: string) {
-    this.$router.push(`hoc-okrs/${slug}`);
+    this.$router.push(`/bai-hoc-okrs/${slug}`);
   }
 
   private handleDelete(row) {

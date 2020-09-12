@@ -28,6 +28,13 @@ button:focus {
   outline: none;
 }
 
+p,
+textarea,
+span {
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 3px;
@@ -276,7 +283,6 @@ button:focus {
 .el-progress {
   .el-progress-bar {
     &__innerText {
-      color: #606266;
       font-size: 14px;
     }
     &__outer {
@@ -311,4 +317,10 @@ button:focus {
 .layout-leave-active {
   opacity: 0;
   transform: translateX(30px);
+}
+
+// El-table
+.el-table .cell {
+  word-break: break-word;
+  word-wrap: break-word;
 }

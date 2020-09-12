@@ -14,18 +14,14 @@ import LessonRepository from '@/repositories/LessonRepository';
     };
   },
   middleware: 'employeesPage',
-  async asyncData({ params, redirect }) {
+  async asyncData({ params }) {
     try {
       const [post, length] = await Promise.all([LessonRepository.getPost(params.slug), LessonRepository.getMetaData()]);
       return {
         post: post.data.data,
         length: length.data.data.length,
       };
-    } catch (error) {
-      if (error.response.status === 404) {
-        return redirect('/404');
-      }
-    }
+    } catch (error) {}
   },
 })
 export default class UpdateLesson extends Vue {}

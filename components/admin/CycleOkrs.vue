@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loadingTable">
-    <el-table v-if="tableData.length > 0" :data="tableData" empty-text="Không có dữ liệu" class="cycle-okrs">
+    <el-table :data="tableData" empty-text="Không có dữ liệu" class="cycle-okrs">
       <el-table-column prop="name" label="Tên chu kỳ"></el-table-column>
       <el-table-column label="Ngày bắt đầu">
         <template v-slot="{ row }">
@@ -70,7 +70,6 @@
 <script lang="ts">
 import { Component, Vue, Prop, PropSync } from 'vue-property-decorator';
 import { Form } from 'element-ui';
-
 import { max255Char } from '../account/account.constant';
 import { notificationConfig, confirmWarningConfig } from '@/constants/app.constant';
 import { AdminTabsEn } from '@/constants/app.enum';
@@ -162,7 +161,14 @@ export default class ManageCycleOkrs extends Vue {
             });
             this.reloadData();
             this.dialogUpdateVisible = false;
-          } catch (error) {}
+          } catch (error) {
+            if (error.response.data.statusCode === 486) {
+              this.$notify.error({
+                ...notificationConfig,
+                message: 'Ngày bắt đầu hoặc ngày kết thúc không hợp lệ',
+              });
+            }
+          }
         });
       }
     });
