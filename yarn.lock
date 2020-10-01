@@ -3,9 +3,9 @@
 
 
 "@amcharts/amcharts4@^4.9.34":
-  version "4.9.34"
-  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4/-/amcharts4-4.9.34.tgz#239cc7ccd07a7334e115d5f4d4de26fba40e5477"
-  integrity sha512-pD8e9dZonNdpjUh/ojxlTUlwmXxgSxsUpQOdc4W6K/coH3+314EGT70prbt41arVRzJAZVkZ27zVnAG5OPmePQ==
+  version "4.10.4"
+  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4/-/amcharts4-4.10.4.tgz#34b59bd35e37c4242a056f4e050e7294c009066f"
+  integrity sha512-mNHZR02FpIkcHq/fNNwJmeyYz1HNPjeF6FTCP8LuluFP67W2eVmUYafgCUedGTPKzkgR6cgY3dQA284ThxjVDQ==
   dependencies:
     "@babel/runtime" "^7.6.3"
     "@types/regression" "^2.0.0"
