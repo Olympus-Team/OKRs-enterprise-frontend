@@ -52,7 +52,7 @@
     "@nuxt/typescript-build": "^2.0.2",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^3.0.0",
-    "@nuxtjs/eslint-config-typescript": "^2.0.0",
+    "@nuxtjs/eslint-config-typescript": "^4.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@types/jest": "^26.0.4",
     "@types/js-cookie": "^2.2.6",
