@@ -36,7 +36,7 @@
     "element-ui": "^2.13.2",
     "highlight.js": "^10.1.2",
     "js-cookie": "^2.2.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "nuxt": "2.14.4",
     "nuxt-clipboard2": "^0.2.1",
     "sass-loader": "^9.0.2",
