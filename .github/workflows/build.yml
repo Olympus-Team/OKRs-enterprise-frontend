@@ -41,9 +41,10 @@ jobs:
 
       - name: Run Unit Test
         run: yarn test:cov
-
-      - name: Upload Codecov report
-        uses: codecov/codecov-action@v1.0.7
+        
+        
+      - name: Codecov
+        uses: codecov/codecov-action@v1.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unit-tests
