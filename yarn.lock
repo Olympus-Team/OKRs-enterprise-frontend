@@ -2181,9 +2181,9 @@
     pretty "^2.0.0"
 
 "@vuejs-community/vue-filter-date-format@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@vuejs-community/vue-filter-date-format/-/vue-filter-date-format-1.5.0.tgz#a94ec54a44d076175586aeb52d7e0b7438b0bcb0"
-  integrity sha512-EWfb435gHj733PQH5M0P0HXDMGjWdGYX8YD2PYaNesCeDNFAepjBUqr31INzzg8MhwLaUdk7a8FF+aKRowxHoQ==
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@vuejs-community/vue-filter-date-format/-/vue-filter-date-format-1.6.3.tgz#10a9b11425f4288f3ebc14c79c7de29322dafec7"
+  integrity sha512-fUjAAI/1qzJPR6AYoK00TBA6/aRYKTXjLY/rSYsWV4G5nwywKfrpOYOJi5exWyzozohyV6nrzliDlWcl32+IPg==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
